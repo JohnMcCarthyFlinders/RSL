@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 90" role="img" aria-label="FUMAP ROV">
+  <!-- Stylised FUMAP ROV: dark rounded hull, side thrusters, gold Flinders roundels, headlight -->
+  <defs>
+    <radialGradient id="beam" cx="0.15" cy="0.5" r="0.85">
+      <stop offset="0" stop-color="#fff6c2" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#fff6c2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a4f5a"/>
+      <stop offset="1" stop-color="#1c1f26"/>
+    </linearGradient>
+    <g id="roundel">
+      <circle r="8.5" fill="#FFD300" stroke="#8a6d00" stroke-width="1"/>
+      <path d="M-3.6 -3.4 H3.6 V1 Q3.6 4.2 0 5.6 Q-3.6 4.2 -3.6 1 Z" fill="#232D4B"/>
+      <path d="M-2.4 0.6 H2.4 M-2.4 2.4 H2.4" stroke="#FFD300" stroke-width=".9"/>
+    </g>
+  </defs>
+  <!-- light beam -->
+  <path d="M100 56 L140 40 L140 90 L104 66 Z" fill="url(#beam)"/>
+  <!-- tether -->
+  <path d="M10 6 C24 4 30 14 40 18" fill="none" stroke="#9fb83a" stroke-width="1.6"/>
+  <!-- rear thrusters -->
+  <ellipse cx="22" cy="30" rx="12" ry="11" fill="#1c1f26" stroke="#5a606c" stroke-width="1.5"/>
+  <ellipse cx="22" cy="30" rx="6" ry="5.5" fill="#0d0f13"/>
+  <!-- hull -->
+  <path d="M30 22 Q60 8 98 30 Q114 40 106 60 Q98 72 78 70 Q48 68 34 54 Q22 40 30 22 Z" fill="url(#hull)" stroke="#5a606c" stroke-width="1.2"/>
+  <path d="M40 24 Q66 16 94 34" fill="none" stroke="#6b717d" stroke-width="1.2" opacity=".7"/>
+  <!-- top fin -->
+  <ellipse cx="50" cy="14" rx="14" ry="4" fill="#2a2d34" stroke="#5a606c" stroke-width="1"/>
+  <rect x="48" y="15" width="4" height="8" fill="#2a2d34"/>
+  <!-- side thrusters -->
+  <ellipse cx="96" cy="26" rx="9" ry="8" fill="#1c1f26" stroke="#5a606c" stroke-width="1.5"/>
+  <ellipse cx="96" cy="26" rx="4.5" ry="4" fill="#0d0f13"/>
+  <ellipse cx="44" cy="58" rx="11" ry="9" fill="#1c1f26" stroke="#5a606c" stroke-width="1.5"/>
+  <ellipse cx="44" cy="58" rx="5.5" ry="4.5" fill="#0d0f13"/>
+  <ellipse cx="108" cy="46" rx="7" ry="8" fill="#1c1f26" stroke="#5a606c" stroke-width="1.5"/>
+  <!-- Flinders roundels -->
+  <use href="#roundel" x="62" y="30"/>
+  <use href="#roundel" x="86" y="50"/>
+  <!-- headlight -->
+  <circle cx="98" cy="62" r="4.5" fill="#fff6c2" stroke="#fff" stroke-width="1"/>
+  <circle cx="98" cy="62" r="7" fill="#fff6c2" opacity=".35"/>
+</svg>

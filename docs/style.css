@@ -144,3 +144,14 @@ dialog p { margin: 0 0 10px; }
 }
 .layers .opacity { margin: 0 0 4px 24px; }
 .layers .opacity input { accent-color: var(--gold); width: 100%; }
+
+/* FUMAP badge, bottom-left above the scale bar */
+.fumap { position: absolute; left: 10px; bottom: 34px; z-index: 1; display: flex; align-items: center; gap: 8px;
+  max-width: 220px; padding: 4px 9px 4px 4px; border-radius: 8px; text-decoration: none; color: var(--ink);
+  background: rgba(10,15,36,.55); border: 1px solid rgba(255,211,0,.35); opacity: .8; transition: opacity .2s; }
+.fumap:hover, .fumap:focus-visible { opacity: 1; }
+.fumap img { width: 66px; height: auto; flex: none; }
+.fumap span { font: 600 10px/1.25 var(--head); letter-spacing: .03em; color: var(--muted); }
+.fumap b { display: block; font: 700 14px/1.1 var(--head); letter-spacing: .12em; color: var(--gold); }
+@media (max-width: 1290px) { .fumap span { display: none; } .fumap { padding-right: 5px; } }
+@media (max-width: 760px) { .fumap { display: none; } }

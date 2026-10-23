@@ -70,7 +70,13 @@ main { position: absolute; inset: var(--top-h) 0 0 0; }
 select { background: var(--field); color: var(--ink); border: 2px solid var(--field-line); border-radius: 5px;
   padding: 4px 6px; font: 14px var(--body); }
 
-.layers { top: 14px; right: 54px; width: 260px; display: flex; flex-direction: column; gap: 6px; }
+.layers { top: 14px; right: 54px; width: 260px; }
+.layers-body { display: flex; flex-direction: column; gap: 6px; }
+.layers summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+.layers summary::-webkit-details-marker { display: none; }
+.layers summary::after { content: "▾"; color: var(--gold); font-size: 14px; transition: transform .2s; }
+.layers details:not([open]) summary::after { transform: rotate(-90deg); }
+.layers details:not([open]) h3 { margin: 0; }
 .layers .field { margin-bottom: 4px; }
 .tog { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
 .tog input { accent-color: var(--gold); width: 16px; height: 16px; margin: 0; }
@@ -134,14 +140,10 @@ dialog p { margin: 0 0 10px; }
   .wordmark b { font-size: 17px; }
   .chip { display: none; }
   .wordmark span { font-size: 9px; letter-spacing: .12em; margin-top: 3px; }
-  .layers { top: auto; bottom: 252px; right: 10px; width: 200px; padding: 10px; }
-  .layers h3 { display: none; }
+  .layers { top: auto; bottom: 252px; right: 10px; width: 220px; padding: 8px 12px; max-height: calc(100% - 270px); overflow-y: auto; }
   .timeline { bottom: 10px; padding: 10px; }
   .stat .big { font-size: 24px; }
   #chart { height: 80px; }
-}
-@media (max-width: 420px) {
-  .layers .field { display: none; }
 }
 .layers .opacity { margin: 0 0 4px 24px; }
 .layers .opacity input { accent-color: var(--gold); width: 100%; }
@@ -175,4 +177,8 @@ dialog p { margin: 0 0 10px; }
   .wordmark b { white-space: normal; font-size: 16px; line-height: 1.05; -webkit-text-stroke: .6px #2a1205; }
   .top .sp { display: none; }
   #about-btn { padding: 7px 9px; font-size: 11px; flex: none; }
+}
+@media (max-width: 760px) {
+  .layers:has(details:not([open])) { width: auto; }
+  .layers summary { gap: 10px; }
 }

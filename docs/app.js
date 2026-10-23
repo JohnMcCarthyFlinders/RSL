@@ -246,6 +246,8 @@
 
     window.addEventListener("resize", drawChart);
     $("land-opacity").addEventListener("input", (e) => map.setPaintProperty("land-fill", "fill-opacity", Number(e.target.value)));
+    // Phones: start with the layers menu folded so it doesn't cover the map
+    if (window.matchMedia("(max-width: 760px)").matches) $("layers-d").open = false;
     $("about-btn").addEventListener("click", () => $("about").showModal());
   }
 

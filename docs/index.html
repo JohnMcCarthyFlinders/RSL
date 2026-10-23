@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="style.css?v=20261023c">
+  <link rel="stylesheet" href="style.css?v=20261023f">
 </head>
 <body>
   <header class="top">
@@ -40,7 +40,9 @@
     </a>
 
     <aside class="win layers" aria-label="Map layers">
-      <h3>Layers</h3>
+      <details id="layers-d" open>
+      <summary><h3>Layers</h3></summary>
+      <div class="layers-body">
       <label class="field">Base map
         <select id="basemap"></select>
       </label>
@@ -51,6 +53,8 @@
       <label class="tog"><input type="checkbox" id="lyr-shore" checked><i class="sw shore"></i> Shoreline</label>
       <label class="tog"><input type="checkbox" id="lyr-lgm"><i class="sw lgm"></i> <span id="lgm-label">Lowest shoreline</span></label>
       <label class="tog"><input type="checkbox" id="lyr-sites" checked><i class="sw site"></i> Sites</label>
+      </div>
+      </details>
     </aside>
 
     <section class="win timeline" aria-label="Time controls">
@@ -88,6 +92,6 @@
   </dialog>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="app.js?v=20261023e"></script>
+  <script src="app.js?v=20261023f"></script>
 </body>
 </html>

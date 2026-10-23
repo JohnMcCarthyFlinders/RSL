@@ -3,10 +3,10 @@
  "source_dem": "synthetic demo (not real bathymetry)",
  "sea_level_table": "sea_level_1ka.csv",
  "bounds": [
-  118,
-  -20,
-  150,
-  -1
+  104.5,
+  -21.5,
+  141.5,
+  0
  ],
  "ages": [
   {

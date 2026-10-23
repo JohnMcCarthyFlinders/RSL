@@ -63,7 +63,7 @@ def main(csv_path, out_dir):
         ages.append(entry)
     manifest = {"demo": True, "source_dem": "synthetic demo (not real bathymetry)",
                 "sea_level_table": os.path.basename(csv_path),
-                "bounds": [118, -20, 150, -1], "ages": ages}
+                "bounds": [104.5, -21.5, 141.5, 0], "ages": ages}
     with open(os.path.join(out_dir, "manifest.json"), "w") as f:
         json.dump(manifest, f, indent=1)
     print("Wrote {} demo ages to {}".format(len(ages), out_dir))

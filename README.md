@@ -20,7 +20,7 @@ shown in a static web map with a time slider.
 
 2. **ArcGIS Pro: contours at those elevations**
 
-   - Load GEBCO and clip it to the shelf (Clip Raster, extent `118 -20 145 -5`).
+   - Load GEBCO and clip it to the shelf (Clip Raster, extent `104.5 -21.5 141.5 0`).
    - Open `scripts/arcgis_contours.py`, set `DEM`, `SEA_LEVEL_CSV` and `OUT_DIR`
      in `CONFIG`, and run it from the Python window:
      `exec(open(r"C:\path\to\arcgis_contours.py").read())`

@@ -4,11 +4,35 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Example site",
-        "note": "Replace this file with your own points. Every property is shown in the popup.",
-        "location": "Approximate: western Arnhem Land"
+        "name": "Cape Bruguieres",
+        "region": "Murujuga (Dampier Archipelago), Western Australia",
+        "what": "Submerged lithic artefact scatter in the tidal channel between Cape Bruguieres Island and North Gidley Island: 269 underwater artefacts down to -2.4 m",
+        "age": "Submerged by about 7000 cal BP",
+        "reference": "Benjamin et al. 2020, PLOS ONE 15(7): e0233912",
+        "position": "Approximate"
       },
-      "geometry": { "type": "Point", "coordinates": [132.9, -12.5] }
+      "geometry": { "type": "Point", "coordinates": [116.81, -20.425] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nusa Penida",
+        "region": "Southeast of Bali, Indonesia",
+        "what": "Island east of the Wallace Line, across the deep Badung Strait from Bali",
+        "position": "Island centre"
+      },
+      "geometry": { "type": "Point", "coordinates": [115.54, -8.73] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cootamundra Shoals",
+        "region": "Van Diemen Rise, Timor Sea, 240 km NW of Darwin",
+        "what": "1982 Sirius Expedition. A cave and overhanging ledges at about 60 m below the 45-48 m terrace at Buoy Juliet II, east side of Dubbo Mesa",
+        "reference": "Flemming, N.C. A survey of the late Quaternary landscape of the Cootamundra Shoals, North Australia. 7th International Diving Science Symposium, Padova",
+        "position": "Juliet II read from Flemming Fig. 6 (about ±1 km). Buoy Alpha on the main shoal is published as 10°50'13\" S, 129°13'10\" E"
+      },
+      "geometry": { "type": "Point", "coordinates": [129.272, -10.822] }
     }
   ]
 }

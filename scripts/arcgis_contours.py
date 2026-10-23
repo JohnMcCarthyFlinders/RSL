@@ -45,8 +45,8 @@ CONFIG = {
     # Output folder (created if missing)
     "OUT_DIR": r"C:\data\shorelines_out",
     # Clip extent "xmin ymin xmax ymax" in DEM units, or "" for the whole DEM.
-    # Arafura / Timor Sea / Sahul shelf:
-    "EXTENT": "118 -20 145 -5",
+    # Java to the PNG border, south to Murujuga (fits in the n0 s-90 w90 e180 GEBCO tile):
+    "EXTENT": "104.5 -21.5 141.5 0",
     # Mean filter size (cells) to soften GEBCO artefacts before contouring; 0 = off
     "SMOOTH_CELLS": 3,
     # Drop shoreline pieces shorter than this (km). Removes pits and tiny islets.

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="style.css?v=20261023f">
+  <link rel="stylesheet" href="style.css?v=20261023g">
 </head>
 <body>
   <header class="top">
@@ -38,6 +38,12 @@
       </svg>
       <span class="visit">Visit FUMAP ↗</span>
     </a>
+
+    <div id="measure-box" class="measure-box" role="status" aria-live="polite" hidden>
+      <div class="m-total"><small>Distance</small><b id="measure-total">0 km</b></div>
+      <div id="measure-hint" class="m-hint">Click the map to start measuring</div>
+      <div class="m-btns"><button id="measure-clear" class="btn alt small">Clear</button><button id="measure-close" class="btn small">Done</button></div>
+    </div>
 
     <aside class="win layers" aria-label="Map layers">
       <details id="layers-d" open>
@@ -87,11 +93,11 @@
     <p>Each step of the slider shows where the coastline sat at that time, from 100,000 years ago to the present. Shorelines are contours of the GEBCO seabed elevation grid drawn at the sea level of each age.</p>
     <p id="source" class="muted"></p>
     <p class="muted">Sea level combines the global curve of Spratt &amp; Lisiecki (2016) with Bonaparte Gulf data (Yokoyama et al. 2000; Ishiwa et al. 2019) for 11–27 ka. The seabed has changed since then through sediment, reef growth and subsidence, so treat the shorelines as approximate.</p>
-    <p class="muted">Keys: ◀ ▶ step through time, Space plays and pauses.</p>
+    <p class="muted">Keys: ◀ ▶ step through time, Space plays and pauses. Measure: click points on the map for distances in km, Esc to finish.</p>
     <form method="dialog"><button class="btn small">Close</button></form>
   </dialog>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="app.js?v=20261023f"></script>
+  <script src="app.js?v=20261023g"></script>
 </body>
 </html>

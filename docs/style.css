@@ -70,7 +70,7 @@ main { position: absolute; inset: var(--top-h) 0 0 0; }
 select { background: var(--field); color: var(--ink); border: 2px solid var(--field-line); border-radius: 5px;
   padding: 4px 6px; font: 14px var(--body); }
 
-.layers { top: 14px; right: 54px; width: 260px; }
+.layers { top: 14px; right: 82px; width: 260px; }
 .layers-body { display: flex; flex-direction: column; gap: 6px; }
 .layers summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
 .layers summary::-webkit-details-marker { display: none; }
@@ -181,4 +181,27 @@ dialog p { margin: 0 0 10px; }
 @media (max-width: 760px) {
   .layers:has(details:not([open])) { width: auto; }
   .layers summary { gap: 10px; }
+}
+
+/* measure tool */
+.measure-ctrl { background: none !important; box-shadow: none !important; }
+.measure-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 58px; padding: 6px 4px 5px;
+  border-radius: 6px; cursor: pointer; background: var(--navy-d); border: 2px solid var(--gold);
+  color: var(--gold); font: 700 10px/1 var(--head); letter-spacing: .06em; text-transform: uppercase;
+  box-shadow: 0 3px 0 #050817; }
+.measure-btn svg { width: 30px; height: 30px; display: block; }
+.measure-btn:hover { filter: brightness(1.15); }
+.measure-btn.active { background: linear-gradient(180deg, #fff08a, var(--gold) 50%, var(--gold-d)); color: #151b33; border-color: #fff4b8; }
+.measure-box { position: absolute; z-index: 3; top: 14px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 14px; padding: 8px 12px; border-radius: 8px;
+  background: rgba(20,27,51,.94); border: 2px solid var(--gold); box-shadow: 0 5px 0 #050817, 0 8px 20px rgba(0,0,0,.4); }
+.measure-box .m-total small { display: block; font: 700 10px var(--head); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.measure-box .m-total b { font: 700 24px/1 var(--head); color: var(--gold); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.measure-box .m-hint { font-size: 13px; color: var(--muted); max-width: 180px; }
+.measure-box .m-btns { display: flex; gap: 6px; }
+@media (max-width: 760px) {
+  .measure-box { top: 10px; left: 126px; right: 76px; transform: none; flex-wrap: wrap; gap: 6px; padding: 6px 8px; }
+  .measure-box .m-total b { font-size: 20px; }
+  .measure-box .m-hint { display: none; }
+  .measure-box .btn.small { padding: 6px 8px; font-size: 11px; }
 }

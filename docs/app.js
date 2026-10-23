@@ -44,6 +44,72 @@
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");
   map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-left");
 
+  // ------------------------------------------------------------ measure
+  // Click points on the map; shows great-circle distance in km.
+  const RULER = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="7" width="21" height="10" rx="1.5" fill="#FFD300" stroke="#151b33" stroke-width="1.4"/>' +
+    '<path d="M5 7v4M8.5 7v2.5M12 7v4M15.5 7v2.5M19 7v4" stroke="#151b33" stroke-width="1.4"/></svg>';
+  const measure = { on: false, pts: [] };
+
+  function haversineKm(a, b) {
+    const R = 6371.0088, rad = Math.PI / 180;
+    const dLat = (b[1] - a[1]) * rad, dLon = (b[0] - a[0]) * rad;
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[1] * rad) * Math.cos(b[1] * rad) * Math.sin(dLon / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  const fmtKm = (km) => (km < 10 ? km.toFixed(2) : km < 100 ? km.toFixed(1) : Math.round(km).toLocaleString()) + " km";
+
+  function drawMeasure() {
+    const pts = measure.pts;
+    const feats = pts.map((c) => ({ type: "Feature", geometry: { type: "Point", coordinates: c } }));
+    if (pts.length > 1) feats.push({ type: "Feature", geometry: { type: "LineString", coordinates: pts } });
+    map.getSource("measure").setData({ type: "FeatureCollection", features: feats });
+    let total = 0, last = 0;
+    for (let i = 1; i < pts.length; i++) { last = haversineKm(pts[i - 1], pts[i]); total += last; }
+    $("measure-total").textContent = pts.length > 1 ? fmtKm(total) : "0 km";
+    $("measure-hint").textContent = pts.length === 0 ? "Click the map to start measuring"
+      : pts.length === 1 ? "Click the next point"
+      : `${pts.length - 1} segment${pts.length > 2 ? "s" : ""} · last ${fmtKm(last)}`;
+  }
+
+  function setMeasure(on) {
+    measure.on = on;
+    measure.pts = [];
+    $("measure-box").hidden = !on;
+    measureBtn.classList.toggle("active", on);
+    measureBtn.setAttribute("aria-pressed", String(on));
+    map.getCanvas().style.cursor = on ? "crosshair" : "";
+    on ? map.doubleClickZoom.disable() : map.doubleClickZoom.enable();
+    if (map.getSource("measure")) drawMeasure();
+  }
+
+  const measureBtn = document.createElement("button");
+  measureBtn.type = "button";
+  measureBtn.className = "measure-btn";
+  measureBtn.title = "Measure distance";
+  measureBtn.setAttribute("aria-pressed", "false");
+  measureBtn.innerHTML = RULER + "<span>Measure</span>";
+  measureBtn.addEventListener("click", () => setMeasure(!measure.on));
+  map.addControl({
+    onAdd() { const c = document.createElement("div"); c.className = "maplibregl-ctrl measure-ctrl"; c.appendChild(measureBtn); return c; },
+    onRemove() {},
+  }, "top-right");
+
+  function addMeasureLayers() {
+    map.addSource("measure", { type: "geojson", data: EMPTY });
+    map.addLayer({ id: "measure-line", type: "line", source: "measure", filter: ["==", "$type", "LineString"],
+      paint: { "line-color": "#FFD300", "line-width": 3, "line-dasharray": [2, 1.5] } });
+    map.addLayer({ id: "measure-pts", type: "circle", source: "measure", filter: ["==", "$type", "Point"],
+      paint: { "circle-radius": 5, "circle-color": "#FFD300", "circle-stroke-color": "#151b33", "circle-stroke-width": 2 } });
+    map.on("click", (e) => {
+      if (!measure.on) return;
+      measure.pts.push([e.lngLat.lng, e.lngLat.lat]);
+      drawMeasure();
+    });
+    $("measure-clear").addEventListener("click", () => { measure.pts = []; drawMeasure(); });
+    $("measure-close").addEventListener("click", () => setMeasure(false));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && measure.on) setMeasure(false); });
+  }
+
   function setBasemap(key) {
     const b = BASEMAPS[key];
     if (map.getLayer("basemap")) map.removeLayer("basemap");
@@ -265,6 +331,7 @@
   // --------------------------------------------------------------- boot
   map.on("load", async () => {
     addDataLayers();
+    addMeasureLayers();
     initBasemapPicker();
     try {
       const r = await fetch(DATA + "manifest.json", { cache: "no-cache" });

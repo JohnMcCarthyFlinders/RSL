@@ -18,7 +18,7 @@
       "properties": {
         "name": "Nusa Penida",
         "region": "Southeast of Bali, Indonesia",
-        "what": "Island east of the Wallace Line, across the deep Badung Strait from Bali",
+        "what": "Island on the Wallace Line: the deep Badung Strait separates it from Bali and the Lombok Strait from Lombok",
         "position": "Island centre"
       },
       "geometry": { "type": "Point", "coordinates": [115.54, -8.73] }

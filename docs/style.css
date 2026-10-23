@@ -84,6 +84,13 @@ select { background: var(--field); color: var(--ink); border: 2px solid var(--fi
 .sw.land { background: var(--land); opacity: .8; border: 1px solid #9c7a33; }
 .sw.shore { height: 4px; background: var(--shore); box-shadow: 0 0 0 1px #000; }
 .sw.lgm { height: 0; border-top: 3px dashed #fff; border-radius: 0; }
+.sw.faunal { height: 12px; border-radius: 0; background: linear-gradient(#4f86ff 0 3px, transparent 3px 4.5px, #ff4040 4.5px 7.5px, transparent 7.5px 9px, #34d27b 9px 12px); }
+.faunal-key { list-style: none; margin: -2px 0 4px 32px; padding: 0; font-size: 12.5px; display: grid; gap: 2px; }
+.faunal-key li { display: flex; align-items: center; gap: 6px; }
+.faunal-key i { width: 16px; height: 3px; border-radius: 2px; flex: none; box-shadow: 0 0 0 1px rgba(0,0,0,.6); }
+.faunal-label { font: 700 12px/1.1 "Atkinson Hyperlegible", sans-serif; color: #fff; padding: 2px 6px; border-radius: 4px;
+  background: rgba(10, 16, 40, .78); border-left: 3px solid currentColor; white-space: nowrap; pointer-events: none; }
+.faunal-label b { color: #fff; font-weight: 700; }
 .sw.site { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--navy); margin: 0 4px; }
 
 .timeline { left: 50%; bottom: 22px; transform: translateX(-50%); width: min(760px, calc(100% - 32px)); }

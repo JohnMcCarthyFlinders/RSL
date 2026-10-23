@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "note": "Approximate traces of the classic faunal boundaries, drawn from coastlines and shelf edges following standard published maps (e.g. Encyclopaedia Britannica). Schematic, not survey lines.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "id": "wallace", "name": "Wallace's Line", "author": "A. R. Wallace", "year": "1863", "color": "#4f86ff", "label": [117.9, -3.6],
+        "what": "Divides Asian fauna (west) from Wallacean fauna (east) through the deep Lombok and Makassar straits, which never dried out at low sea level." },
+      "geometry": { "type": "LineString", "coordinates": [
+        [115.8, -12.0], [115.8, -10.0], [115.8, -8.9], [115.85, -8.3], [116.1, -7.6], [116.8, -6.2], [117.4, -4.8],
+        [118.0, -3.0], [118.5, -1.5], [118.9, 0.0], [119.3, 1.3], [120.6, 2.6], [122.3, 3.8],
+        [124.3, 4.9], [126.3, 5.8], [128.3, 6.6], [130.0, 7.3] ] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "huxley", "name": "Huxley's Line", "author": "T. H. Huxley", "year": "1868", "color": "#ff4040", "label": [119.6, 15.5],
+        "what": "Huxley's modification of Wallace's Line: follows it in the south but runs west of the Philippines, placing Palawan with Borneo." },
+      "geometry": { "type": "LineString", "coordinates": [
+        [119.3, 1.3], [119.6, 3.5], [120.2, 5.5], [120.6, 7.5], [120.5, 9.5], [120.9, 11.5],
+        [120.5, 13.0], [119.8, 15.0], [119.6, 17.0], [120.0, 18.8], [121.0, 20.3], [122.6, 21.2], [124.5, 21.6] ] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "weber", "name": "Weber's Line", "author": "M. Weber", "year": "1902", "color": "#d36bff", "label": [127.6, -4.6],
+        "what": "Line of faunal balance, where Asian and Australian animals are roughly equal in number, through the Molucca and Banda seas." },
+      "geometry": { "type": "LineString", "coordinates": [
+        [130.3, 5.0], [128.5, 4.0], [127.0, 3.0], [126.2, 1.8], [126.1, 0.5], [126.6, -1.0],
+        [127.4, -2.6], [127.5, -3.5], [127.6, -4.8], [127.8, -6.1], [128.3, -7.3], [128.1, -8.7],
+        [126.5, -10.0], [124.5, -11.0], [122.5, -12.0] ] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "lydekker", "name": "Lydekker's Line", "author": "R. Lydekker", "year": "1895", "color": "#34d27b", "label": [133.4, -6.4],
+        "what": "Western limit of Australian and New Guinean mainland fauna, following the edge of the Sahul shelf." },
+      "geometry": { "type": "LineString", "coordinates": [
+        [131.5, 1.5], [130.0, 0.4], [129.4, -0.6], [129.5, -1.8], [130.3, -2.5], [131.6, -3.3],
+        [132.6, -4.0], [133.3, -4.6], [133.6, -6.0], [133.2, -7.5], [131.8, -8.6], [129.5, -9.3], [127.5, -10.0],
+        [125.5, -11.0], [123.5, -12.0], [121.0, -13.7] ] }
+    }
+  ]
+}

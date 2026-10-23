@@ -295,6 +295,11 @@
     }
     ages = manifest.ages.slice().sort((a, b) => a.age_ka - b.age_ka);
     $("demo-banner").hidden = !manifest.demo;
+    if (!ages.some((a) => a.land)) {
+      // Lines-only export: hide the land fill controls
+      $("lyr-land").closest("label").hidden = true;
+      $("land-opacity").closest("label").hidden = true;
+    }
     $("source").textContent = [manifest.sea_level_table && "Sea level table: " + manifest.sea_level_table,
       manifest.source_dem && "Elevation: " + manifest.source_dem].filter(Boolean).join(" · ") + ".";
     if (manifest.bounds) map.fitBounds([[manifest.bounds[0], manifest.bounds[1]], [manifest.bounds[2], manifest.bounds[3]]], { padding: { top: 30, bottom: 260, left: 30, right: 30 }, duration: 0 });

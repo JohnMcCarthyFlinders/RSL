@@ -1,12 +1,12 @@
 {
- "demo": true,
- "source_dem": "synthetic demo (not real bathymetry)",
+ "generated": "2026-10-23T18:57:25",
+ "source_dem": "gebco_2026_sub_ice_n0_Clip",
  "sea_level_table": "sea_level_1ka.csv",
  "bounds": [
-  104.5,
+  104.496,
   -21.5,
   141.5,
-  0
+  0.0
  ],
  "ages": [
   {
@@ -16,8 +16,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": 0.0,
    "err_up": 0.0,
-   "shoreline": "contours/shoreline_000ka.geojson",
-   "land": "contours/land_000ka.geojson"
+   "shoreline": "contours/shoreline_000ka.geojson"
   },
   {
    "age_ka": 1.0,
@@ -26,8 +25,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": 0.0,
    "err_up": 0.5,
-   "shoreline": "contours/shoreline_001ka.geojson",
-   "land": "contours/land_001ka.geojson"
+   "shoreline": "contours/shoreline_001ka.geojson"
   },
   {
    "age_ka": 2.0,
@@ -36,8 +34,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": 0.0,
    "err_up": 1.5,
-   "shoreline": "contours/shoreline_002ka.geojson",
-   "land": "contours/land_002ka.geojson"
+   "shoreline": "contours/shoreline_002ka.geojson"
   },
   {
    "age_ka": 3.0,
@@ -46,8 +43,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": 0.0,
    "err_up": 2.0,
-   "shoreline": "contours/shoreline_003ka.geojson",
-   "land": "contours/land_003ka.geojson"
+   "shoreline": "contours/shoreline_003ka.geojson"
   },
   {
    "age_ka": 4.0,
@@ -56,8 +52,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": 0.0,
    "err_up": 2.5,
-   "shoreline": "contours/shoreline_004ka.geojson",
-   "land": "contours/land_004ka.geojson"
+   "shoreline": "contours/shoreline_004ka.geojson"
   },
   {
    "age_ka": 5.0,
@@ -66,8 +61,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": 0.0,
    "err_up": 2.5,
-   "shoreline": "contours/shoreline_005ka.geojson",
-   "land": "contours/land_005ka.geojson"
+   "shoreline": "contours/shoreline_005ka.geojson"
   },
   {
    "age_ka": 6.0,
@@ -76,8 +70,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": 0.0,
    "err_up": 2.5,
-   "shoreline": "contours/shoreline_006ka.geojson",
-   "land": "contours/land_006ka.geojson"
+   "shoreline": "contours/shoreline_006ka.geojson"
   },
   {
    "age_ka": 7.0,
@@ -86,8 +79,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -0.5,
    "err_up": 1.5,
-   "shoreline": "contours/shoreline_007ka.geojson",
-   "land": "contours/land_007ka.geojson"
+   "shoreline": "contours/shoreline_007ka.geojson"
   },
   {
    "age_ka": 8.0,
@@ -96,8 +88,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -12.0,
    "err_up": -4.0,
-   "shoreline": "contours/shoreline_008ka.geojson",
-   "land": "contours/land_008ka.geojson"
+   "shoreline": "contours/shoreline_008ka.geojson"
   },
   {
    "age_ka": 9.0,
@@ -106,8 +97,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -47.9,
    "err_up": -15.8,
-   "shoreline": "contours/shoreline_009ka.geojson",
-   "land": "contours/land_009ka.geojson"
+   "shoreline": "contours/shoreline_009ka.geojson"
   },
   {
    "age_ka": 10.0,
@@ -116,8 +106,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -63.4,
    "err_up": -23.1,
-   "shoreline": "contours/shoreline_010ka.geojson",
-   "land": "contours/land_010ka.geojson"
+   "shoreline": "contours/shoreline_010ka.geojson"
   },
   {
    "age_ka": 11.0,
@@ -126,8 +115,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -52.7,
    "err_up": -50.7,
-   "shoreline": "contours/shoreline_011ka.geojson",
-   "land": "contours/land_011ka.geojson"
+   "shoreline": "contours/shoreline_011ka.geojson"
   },
   {
    "age_ka": 12.0,
@@ -136,8 +124,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -64.2,
    "err_up": -57.1,
-   "shoreline": "contours/shoreline_012ka.geojson",
-   "land": "contours/land_012ka.geojson"
+   "shoreline": "contours/shoreline_012ka.geojson"
   },
   {
    "age_ka": 13.0,
@@ -146,8 +133,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -69.5,
    "err_up": -61.6,
-   "shoreline": "contours/shoreline_013ka.geojson",
-   "land": "contours/land_013ka.geojson"
+   "shoreline": "contours/shoreline_013ka.geojson"
   },
   {
    "age_ka": 14.0,
@@ -156,8 +142,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -75.2,
    "err_up": -66.2,
-   "shoreline": "contours/shoreline_014ka.geojson",
-   "land": "contours/land_014ka.geojson"
+   "shoreline": "contours/shoreline_014ka.geojson"
   },
   {
    "age_ka": 15.0,
@@ -166,8 +151,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -95.4,
    "err_up": -85.5,
-   "shoreline": "contours/shoreline_015ka.geojson",
-   "land": "contours/land_015ka.geojson"
+   "shoreline": "contours/shoreline_015ka.geojson"
   },
   {
    "age_ka": 16.0,
@@ -176,8 +160,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -103.7,
    "err_up": -92.4,
-   "shoreline": "contours/shoreline_016ka.geojson",
-   "land": "contours/land_016ka.geojson"
+   "shoreline": "contours/shoreline_016ka.geojson"
   },
   {
    "age_ka": 17.0,
@@ -186,8 +169,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -111.1,
    "err_up": -98.9,
-   "shoreline": "contours/shoreline_017ka.geojson",
-   "land": "contours/land_017ka.geojson"
+   "shoreline": "contours/shoreline_017ka.geojson"
   },
   {
    "age_ka": 18.0,
@@ -196,8 +178,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -116.4,
    "err_up": -103.1,
-   "shoreline": "contours/shoreline_018ka.geojson",
-   "land": "contours/land_018ka.geojson"
+   "shoreline": "contours/shoreline_018ka.geojson"
   },
   {
    "age_ka": 19.0,
@@ -206,8 +187,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -125.5,
    "err_up": -112.2,
-   "shoreline": "contours/shoreline_019ka.geojson",
-   "land": "contours/land_019ka.geojson"
+   "shoreline": "contours/shoreline_019ka.geojson"
   },
   {
    "age_ka": 20.0,
@@ -216,8 +196,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -115.2,
    "err_up": -103.2,
-   "shoreline": "contours/shoreline_020ka.geojson",
-   "land": "contours/land_020ka.geojson"
+   "shoreline": "contours/shoreline_020ka.geojson"
   },
   {
    "age_ka": 21.0,
@@ -226,8 +205,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -110.1,
    "err_up": -98.5,
-   "shoreline": "contours/shoreline_021ka.geojson",
-   "land": "contours/land_021ka.geojson"
+   "shoreline": "contours/shoreline_021ka.geojson"
   },
   {
    "age_ka": 22.0,
@@ -236,8 +214,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -110.2,
    "err_up": -99.1,
-   "shoreline": "contours/shoreline_022ka.geojson",
-   "land": "contours/land_022ka.geojson"
+   "shoreline": "contours/shoreline_022ka.geojson"
   },
   {
    "age_ka": 23.0,
@@ -246,8 +223,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -110.6,
    "err_up": -99.6,
-   "shoreline": "contours/shoreline_023ka.geojson",
-   "land": "contours/land_023ka.geojson"
+   "shoreline": "contours/shoreline_023ka.geojson"
   },
   {
    "age_ka": 24.0,
@@ -256,8 +232,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -111.0,
    "err_up": -100.0,
-   "shoreline": "contours/shoreline_024ka.geojson",
-   "land": "contours/land_024ka.geojson"
+   "shoreline": "contours/shoreline_024ka.geojson"
   },
   {
    "age_ka": 25.0,
@@ -266,8 +241,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -111.4,
    "err_up": -100.6,
-   "shoreline": "contours/shoreline_025ka.geojson",
-   "land": "contours/land_025ka.geojson"
+   "shoreline": "contours/shoreline_025ka.geojson"
   },
   {
    "age_ka": 26.0,
@@ -276,8 +250,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -111.8,
    "err_up": -101.1,
-   "shoreline": "contours/shoreline_026ka.geojson",
-   "land": "contours/land_026ka.geojson"
+   "shoreline": "contours/shoreline_026ka.geojson"
   },
   {
    "age_ka": 27.0,
@@ -286,8 +259,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -112.2,
    "err_up": -101.4,
-   "shoreline": "contours/shoreline_027ka.geojson",
-   "land": "contours/land_027ka.geojson"
+   "shoreline": "contours/shoreline_027ka.geojson"
   },
   {
    "age_ka": 28.0,
@@ -296,8 +268,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -119.4,
    "err_up": -97.7,
-   "shoreline": "contours/shoreline_028ka.geojson",
-   "land": "contours/land_028ka.geojson"
+   "shoreline": "contours/shoreline_028ka.geojson"
   },
   {
    "age_ka": 29.0,
@@ -306,8 +277,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -116.7,
    "err_up": -94.5,
-   "shoreline": "contours/shoreline_029ka.geojson",
-   "land": "contours/land_029ka.geojson"
+   "shoreline": "contours/shoreline_029ka.geojson"
   },
   {
    "age_ka": 30.0,
@@ -316,8 +286,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -114.2,
    "err_up": -92.2,
-   "shoreline": "contours/shoreline_030ka.geojson",
-   "land": "contours/land_030ka.geojson"
+   "shoreline": "contours/shoreline_030ka.geojson"
   },
   {
    "age_ka": 31.0,
@@ -326,8 +295,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -111.5,
    "err_up": -88.9,
-   "shoreline": "contours/shoreline_031ka.geojson",
-   "land": "contours/land_031ka.geojson"
+   "shoreline": "contours/shoreline_031ka.geojson"
   },
   {
    "age_ka": 32.0,
@@ -336,8 +304,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -110.2,
    "err_up": -86.7,
-   "shoreline": "contours/shoreline_032ka.geojson",
-   "land": "contours/land_032ka.geojson"
+   "shoreline": "contours/shoreline_032ka.geojson"
   },
   {
    "age_ka": 33.0,
@@ -346,8 +313,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -110.5,
    "err_up": -85.8,
-   "shoreline": "contours/shoreline_033ka.geojson",
-   "land": "contours/land_033ka.geojson"
+   "shoreline": "contours/shoreline_033ka.geojson"
   },
   {
    "age_ka": 34.0,
@@ -356,8 +322,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -112.5,
    "err_up": -86.1,
-   "shoreline": "contours/shoreline_034ka.geojson",
-   "land": "contours/land_034ka.geojson"
+   "shoreline": "contours/shoreline_034ka.geojson"
   },
   {
    "age_ka": 35.0,
@@ -366,8 +331,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -112.7,
    "err_up": -85.7,
-   "shoreline": "contours/shoreline_035ka.geojson",
-   "land": "contours/land_035ka.geojson"
+   "shoreline": "contours/shoreline_035ka.geojson"
   },
   {
    "age_ka": 36.0,
@@ -376,8 +340,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -112.8,
    "err_up": -85.3,
-   "shoreline": "contours/shoreline_036ka.geojson",
-   "land": "contours/land_036ka.geojson"
+   "shoreline": "contours/shoreline_036ka.geojson"
   },
   {
    "age_ka": 37.0,
@@ -386,8 +349,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -112.2,
    "err_up": -85.7,
-   "shoreline": "contours/shoreline_037ka.geojson",
-   "land": "contours/land_037ka.geojson"
+   "shoreline": "contours/shoreline_037ka.geojson"
   },
   {
    "age_ka": 38.0,
@@ -396,8 +358,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -109.5,
    "err_up": -84.2,
-   "shoreline": "contours/shoreline_038ka.geojson",
-   "land": "contours/land_038ka.geojson"
+   "shoreline": "contours/shoreline_038ka.geojson"
   },
   {
    "age_ka": 39.0,
@@ -406,8 +367,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -102.8,
    "err_up": -81.1,
-   "shoreline": "contours/shoreline_039ka.geojson",
-   "land": "contours/land_039ka.geojson"
+   "shoreline": "contours/shoreline_039ka.geojson"
   },
   {
    "age_ka": 40.0,
@@ -416,8 +376,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -98.9,
    "err_up": -76.2,
-   "shoreline": "contours/shoreline_040ka.geojson",
-   "land": "contours/land_040ka.geojson"
+   "shoreline": "contours/shoreline_040ka.geojson"
   },
   {
    "age_ka": 41.0,
@@ -426,8 +385,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -94.7,
    "err_up": -72.6,
-   "shoreline": "contours/shoreline_041ka.geojson",
-   "land": "contours/land_041ka.geojson"
+   "shoreline": "contours/shoreline_041ka.geojson"
   },
   {
    "age_ka": 42.0,
@@ -436,8 +394,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -90.5,
    "err_up": -70.8,
-   "shoreline": "contours/shoreline_042ka.geojson",
-   "land": "contours/land_042ka.geojson"
+   "shoreline": "contours/shoreline_042ka.geojson"
   },
   {
    "age_ka": 43.0,
@@ -446,8 +403,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -86.7,
    "err_up": -68.7,
-   "shoreline": "contours/shoreline_043ka.geojson",
-   "land": "contours/land_043ka.geojson"
+   "shoreline": "contours/shoreline_043ka.geojson"
   },
   {
    "age_ka": 44.0,
@@ -456,8 +412,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -86.7,
    "err_up": -67.7,
-   "shoreline": "contours/shoreline_044ka.geojson",
-   "land": "contours/land_044ka.geojson"
+   "shoreline": "contours/shoreline_044ka.geojson"
   },
   {
    "age_ka": 45.0,
@@ -466,8 +421,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -85.5,
    "err_up": -67.2,
-   "shoreline": "contours/shoreline_045ka.geojson",
-   "land": "contours/land_045ka.geojson"
+   "shoreline": "contours/shoreline_045ka.geojson"
   },
   {
    "age_ka": 46.0,
@@ -476,8 +430,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -87.6,
    "err_up": -67.5,
-   "shoreline": "contours/shoreline_046ka.geojson",
-   "land": "contours/land_046ka.geojson"
+   "shoreline": "contours/shoreline_046ka.geojson"
   },
   {
    "age_ka": 47.0,
@@ -486,8 +439,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -87.1,
    "err_up": -67.3,
-   "shoreline": "contours/shoreline_047ka.geojson",
-   "land": "contours/land_047ka.geojson"
+   "shoreline": "contours/shoreline_047ka.geojson"
   },
   {
    "age_ka": 48.0,
@@ -496,8 +448,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -86.9,
    "err_up": -65.6,
-   "shoreline": "contours/shoreline_048ka.geojson",
-   "land": "contours/land_048ka.geojson"
+   "shoreline": "contours/shoreline_048ka.geojson"
   },
   {
    "age_ka": 49.0,
@@ -506,8 +457,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -84.4,
    "err_up": -61.6,
-   "shoreline": "contours/shoreline_049ka.geojson",
-   "land": "contours/land_049ka.geojson"
+   "shoreline": "contours/shoreline_049ka.geojson"
   },
   {
    "age_ka": 50.0,
@@ -516,8 +466,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -84.9,
    "err_up": -58.5,
-   "shoreline": "contours/shoreline_050ka.geojson",
-   "land": "contours/land_050ka.geojson"
+   "shoreline": "contours/shoreline_050ka.geojson"
   },
   {
    "age_ka": 51.0,
@@ -526,8 +475,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -82.3,
    "err_up": -58.0,
-   "shoreline": "contours/shoreline_051ka.geojson",
-   "land": "contours/land_051ka.geojson"
+   "shoreline": "contours/shoreline_051ka.geojson"
   },
   {
    "age_ka": 52.0,
@@ -536,8 +484,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -81.7,
    "err_up": -57.2,
-   "shoreline": "contours/shoreline_052ka.geojson",
-   "land": "contours/land_052ka.geojson"
+   "shoreline": "contours/shoreline_052ka.geojson"
   },
   {
    "age_ka": 53.0,
@@ -546,8 +493,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -83.0,
    "err_up": -56.0,
-   "shoreline": "contours/shoreline_053ka.geojson",
-   "land": "contours/land_053ka.geojson"
+   "shoreline": "contours/shoreline_053ka.geojson"
   },
   {
    "age_ka": 54.0,
@@ -556,8 +502,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -87.9,
    "err_up": -58.8,
-   "shoreline": "contours/shoreline_054ka.geojson",
-   "land": "contours/land_054ka.geojson"
+   "shoreline": "contours/shoreline_054ka.geojson"
   },
   {
    "age_ka": 55.0,
@@ -566,8 +511,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -91.7,
    "err_up": -61.0,
-   "shoreline": "contours/shoreline_055ka.geojson",
-   "land": "contours/land_055ka.geojson"
+   "shoreline": "contours/shoreline_055ka.geojson"
   },
   {
    "age_ka": 56.0,
@@ -576,8 +520,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -95.4,
    "err_up": -63.0,
-   "shoreline": "contours/shoreline_056ka.geojson",
-   "land": "contours/land_056ka.geojson"
+   "shoreline": "contours/shoreline_056ka.geojson"
   },
   {
    "age_ka": 57.0,
@@ -586,8 +529,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -97.0,
    "err_up": -65.2,
-   "shoreline": "contours/shoreline_057ka.geojson",
-   "land": "contours/land_057ka.geojson"
+   "shoreline": "contours/shoreline_057ka.geojson"
   },
   {
    "age_ka": 58.0,
@@ -596,8 +538,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -99.3,
    "err_up": -66.1,
-   "shoreline": "contours/shoreline_058ka.geojson",
-   "land": "contours/land_058ka.geojson"
+   "shoreline": "contours/shoreline_058ka.geojson"
   },
   {
    "age_ka": 59.0,
@@ -606,8 +547,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -101.5,
    "err_up": -65.2,
-   "shoreline": "contours/shoreline_059ka.geojson",
-   "land": "contours/land_059ka.geojson"
+   "shoreline": "contours/shoreline_059ka.geojson"
   },
   {
    "age_ka": 60.0,
@@ -616,8 +556,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -101.4,
    "err_up": -66.0,
-   "shoreline": "contours/shoreline_060ka.geojson",
-   "land": "contours/land_060ka.geojson"
+   "shoreline": "contours/shoreline_060ka.geojson"
   },
   {
    "age_ka": 61.0,
@@ -626,8 +565,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -100.7,
    "err_up": -63.7,
-   "shoreline": "contours/shoreline_061ka.geojson",
-   "land": "contours/land_061ka.geojson"
+   "shoreline": "contours/shoreline_061ka.geojson"
   },
   {
    "age_ka": 62.0,
@@ -636,8 +574,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -101.3,
    "err_up": -65.0,
-   "shoreline": "contours/shoreline_062ka.geojson",
-   "land": "contours/land_062ka.geojson"
+   "shoreline": "contours/shoreline_062ka.geojson"
   },
   {
    "age_ka": 63.0,
@@ -646,8 +583,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -100.1,
    "err_up": -66.5,
-   "shoreline": "contours/shoreline_063ka.geojson",
-   "land": "contours/land_063ka.geojson"
+   "shoreline": "contours/shoreline_063ka.geojson"
   },
   {
    "age_ka": 64.0,
@@ -656,8 +592,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -97.9,
    "err_up": -69.3,
-   "shoreline": "contours/shoreline_064ka.geojson",
-   "land": "contours/land_064ka.geojson"
+   "shoreline": "contours/shoreline_064ka.geojson"
   },
   {
    "age_ka": 65.0,
@@ -666,8 +601,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -97.6,
    "err_up": -70.8,
-   "shoreline": "contours/shoreline_065ka.geojson",
-   "land": "contours/land_065ka.geojson"
+   "shoreline": "contours/shoreline_065ka.geojson"
   },
   {
    "age_ka": 66.0,
@@ -676,8 +610,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -95.6,
    "err_up": -68.7,
-   "shoreline": "contours/shoreline_066ka.geojson",
-   "land": "contours/land_066ka.geojson"
+   "shoreline": "contours/shoreline_066ka.geojson"
   },
   {
    "age_ka": 67.0,
@@ -686,8 +619,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -92.0,
    "err_up": -64.6,
-   "shoreline": "contours/shoreline_067ka.geojson",
-   "land": "contours/land_067ka.geojson"
+   "shoreline": "contours/shoreline_067ka.geojson"
   },
   {
    "age_ka": 68.0,
@@ -696,8 +628,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -88.6,
    "err_up": -60.5,
-   "shoreline": "contours/shoreline_068ka.geojson",
-   "land": "contours/land_068ka.geojson"
+   "shoreline": "contours/shoreline_068ka.geojson"
   },
   {
    "age_ka": 69.0,
@@ -706,8 +637,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -85.2,
    "err_up": -51.1,
-   "shoreline": "contours/shoreline_069ka.geojson",
-   "land": "contours/land_069ka.geojson"
+   "shoreline": "contours/shoreline_069ka.geojson"
   },
   {
    "age_ka": 70.0,
@@ -716,8 +646,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -79.2,
    "err_up": -42.7,
-   "shoreline": "contours/shoreline_070ka.geojson",
-   "land": "contours/land_070ka.geojson"
+   "shoreline": "contours/shoreline_070ka.geojson"
   },
   {
    "age_ka": 71.0,
@@ -726,8 +655,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -75.0,
    "err_up": -35.4,
-   "shoreline": "contours/shoreline_071ka.geojson",
-   "land": "contours/land_071ka.geojson"
+   "shoreline": "contours/shoreline_071ka.geojson"
   },
   {
    "age_ka": 72.0,
@@ -736,8 +664,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -69.6,
    "err_up": -29.2,
-   "shoreline": "contours/shoreline_072ka.geojson",
-   "land": "contours/land_072ka.geojson"
+   "shoreline": "contours/shoreline_072ka.geojson"
   },
   {
    "age_ka": 73.0,
@@ -746,8 +673,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -63.1,
    "err_up": -23.3,
-   "shoreline": "contours/shoreline_073ka.geojson",
-   "land": "contours/land_073ka.geojson"
+   "shoreline": "contours/shoreline_073ka.geojson"
   },
   {
    "age_ka": 74.0,
@@ -756,8 +682,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -58.1,
    "err_up": -21.2,
-   "shoreline": "contours/shoreline_074ka.geojson",
-   "land": "contours/land_074ka.geojson"
+   "shoreline": "contours/shoreline_074ka.geojson"
   },
   {
    "age_ka": 75.0,
@@ -766,8 +691,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -54.2,
    "err_up": -18.4,
-   "shoreline": "contours/shoreline_075ka.geojson",
-   "land": "contours/land_075ka.geojson"
+   "shoreline": "contours/shoreline_075ka.geojson"
   },
   {
    "age_ka": 76.0,
@@ -776,8 +700,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -48.5,
    "err_up": -16.1,
-   "shoreline": "contours/shoreline_076ka.geojson",
-   "land": "contours/land_076ka.geojson"
+   "shoreline": "contours/shoreline_076ka.geojson"
   },
   {
    "age_ka": 77.0,
@@ -786,8 +709,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -47.9,
    "err_up": -16.5,
-   "shoreline": "contours/shoreline_077ka.geojson",
-   "land": "contours/land_077ka.geojson"
+   "shoreline": "contours/shoreline_077ka.geojson"
   },
   {
    "age_ka": 78.0,
@@ -796,8 +718,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -47.1,
    "err_up": -16.6,
-   "shoreline": "contours/shoreline_078ka.geojson",
-   "land": "contours/land_078ka.geojson"
+   "shoreline": "contours/shoreline_078ka.geojson"
   },
   {
    "age_ka": 79.0,
@@ -806,8 +727,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -46.3,
    "err_up": -18.1,
-   "shoreline": "contours/shoreline_079ka.geojson",
-   "land": "contours/land_079ka.geojson"
+   "shoreline": "contours/shoreline_079ka.geojson"
   },
   {
    "age_ka": 80.0,
@@ -816,8 +736,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -46.3,
    "err_up": -19.4,
-   "shoreline": "contours/shoreline_080ka.geojson",
-   "land": "contours/land_080ka.geojson"
+   "shoreline": "contours/shoreline_080ka.geojson"
   },
   {
    "age_ka": 81.0,
@@ -826,8 +745,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -47.6,
    "err_up": -17.2,
-   "shoreline": "contours/shoreline_081ka.geojson",
-   "land": "contours/land_081ka.geojson"
+   "shoreline": "contours/shoreline_081ka.geojson"
   },
   {
    "age_ka": 82.0,
@@ -836,8 +754,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -47.4,
    "err_up": -15.9,
-   "shoreline": "contours/shoreline_082ka.geojson",
-   "land": "contours/land_082ka.geojson"
+   "shoreline": "contours/shoreline_082ka.geojson"
   },
   {
    "age_ka": 83.0,
@@ -846,8 +763,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -48.0,
    "err_up": -14.5,
-   "shoreline": "contours/shoreline_083ka.geojson",
-   "land": "contours/land_083ka.geojson"
+   "shoreline": "contours/shoreline_083ka.geojson"
   },
   {
    "age_ka": 84.0,
@@ -856,8 +772,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -49.3,
    "err_up": -14.5,
-   "shoreline": "contours/shoreline_084ka.geojson",
-   "land": "contours/land_084ka.geojson"
+   "shoreline": "contours/shoreline_084ka.geojson"
   },
   {
    "age_ka": 85.0,
@@ -866,8 +781,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -51.5,
    "err_up": -15.6,
-   "shoreline": "contours/shoreline_085ka.geojson",
-   "land": "contours/land_085ka.geojson"
+   "shoreline": "contours/shoreline_085ka.geojson"
   },
   {
    "age_ka": 86.0,
@@ -876,8 +790,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -56.5,
    "err_up": -18.1,
-   "shoreline": "contours/shoreline_086ka.geojson",
-   "land": "contours/land_086ka.geojson"
+   "shoreline": "contours/shoreline_086ka.geojson"
   },
   {
    "age_ka": 87.0,
@@ -886,8 +799,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -58.2,
    "err_up": -20.9,
-   "shoreline": "contours/shoreline_087ka.geojson",
-   "land": "contours/land_087ka.geojson"
+   "shoreline": "contours/shoreline_087ka.geojson"
   },
   {
    "age_ka": 88.0,
@@ -896,8 +808,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -60.0,
    "err_up": -25.7,
-   "shoreline": "contours/shoreline_088ka.geojson",
-   "land": "contours/land_088ka.geojson"
+   "shoreline": "contours/shoreline_088ka.geojson"
   },
   {
    "age_ka": 89.0,
@@ -906,8 +817,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -60.5,
    "err_up": -28.6,
-   "shoreline": "contours/shoreline_089ka.geojson",
-   "land": "contours/land_089ka.geojson"
+   "shoreline": "contours/shoreline_089ka.geojson"
   },
   {
    "age_ka": 90.0,
@@ -916,8 +826,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -59.5,
    "err_up": -28.9,
-   "shoreline": "contours/shoreline_090ka.geojson",
-   "land": "contours/land_090ka.geojson"
+   "shoreline": "contours/shoreline_090ka.geojson"
   },
   {
    "age_ka": 91.0,
@@ -926,8 +835,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -57.2,
    "err_up": -27.2,
-   "shoreline": "contours/shoreline_091ka.geojson",
-   "land": "contours/land_091ka.geojson"
+   "shoreline": "contours/shoreline_091ka.geojson"
   },
   {
    "age_ka": 92.0,
@@ -936,8 +844,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -56.7,
    "err_up": -26.3,
-   "shoreline": "contours/shoreline_092ka.geojson",
-   "land": "contours/land_092ka.geojson"
+   "shoreline": "contours/shoreline_092ka.geojson"
   },
   {
    "age_ka": 93.0,
@@ -946,8 +853,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -53.8,
    "err_up": -27.9,
-   "shoreline": "contours/shoreline_093ka.geojson",
-   "land": "contours/land_093ka.geojson"
+   "shoreline": "contours/shoreline_093ka.geojson"
   },
   {
    "age_ka": 94.0,
@@ -956,8 +862,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -52.4,
    "err_up": -26.5,
-   "shoreline": "contours/shoreline_094ka.geojson",
-   "land": "contours/land_094ka.geojson"
+   "shoreline": "contours/shoreline_094ka.geojson"
   },
   {
    "age_ka": 95.0,
@@ -966,8 +871,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -50.8,
    "err_up": -21.5,
-   "shoreline": "contours/shoreline_095ka.geojson",
-   "land": "contours/land_095ka.geojson"
+   "shoreline": "contours/shoreline_095ka.geojson"
   },
   {
    "age_ka": 96.0,
@@ -976,8 +880,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -47.5,
    "err_up": -16.2,
-   "shoreline": "contours/shoreline_096ka.geojson",
-   "land": "contours/land_096ka.geojson"
+   "shoreline": "contours/shoreline_096ka.geojson"
   },
   {
    "age_ka": 97.0,
@@ -986,8 +889,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -42.0,
    "err_up": -11.0,
-   "shoreline": "contours/shoreline_097ka.geojson",
-   "land": "contours/land_097ka.geojson"
+   "shoreline": "contours/shoreline_097ka.geojson"
   },
   {
    "age_ka": 98.0,
@@ -996,8 +898,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -38.2,
    "err_up": -9.8,
-   "shoreline": "contours/shoreline_098ka.geojson",
-   "land": "contours/land_098ka.geojson"
+   "shoreline": "contours/shoreline_098ka.geojson"
   },
   {
    "age_ka": 99.0,
@@ -1006,8 +907,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -35.7,
    "err_up": -9.3,
-   "shoreline": "contours/shoreline_099ka.geojson",
-   "land": "contours/land_099ka.geojson"
+   "shoreline": "contours/shoreline_099ka.geojson"
   },
   {
    "age_ka": 100.0,
@@ -1016,8 +916,7 @@
    "nearest_obs_kyr": 0.0,
    "err_lo": -36.3,
    "err_up": -9.3,
-   "shoreline": "contours/shoreline_100ka.geojson",
-   "land": "contours/land_100ka.geojson"
+   "shoreline": "contours/shoreline_100ka.geojson"
   }
  ]
 }

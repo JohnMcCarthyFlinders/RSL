@@ -31,6 +31,8 @@ def main():
     p.add_argument("--min-km", type=float, default=15.0, help="drop lines shorter than this")
     p.add_argument("--min-km2", type=float, default=20.0, help="drop polygons smaller than this")
     p.add_argument("--decimals", type=int, default=3)
+    p.add_argument("--merge", action="store_true",
+                   help="merge each file into one multi-part feature (smaller, faster to draw)")
     a = p.parse_args()
 
     os.makedirs(a.dst, exist_ok=True)
@@ -54,6 +56,14 @@ def main():
             out.append({"type": "Feature", "properties": feat.get("properties", {}),
                         "geometry": {"type": gj["type"],
                                      "coordinates": round_coords(gj["coordinates"], a.decimals)}})
+        if a.merge and out:
+            kind = out[0]["geometry"]["type"].replace("Multi", "")
+            parts = []
+            for ft in out:
+                c = ft["geometry"]["coordinates"]
+                parts.extend(c if ft["geometry"]["type"].startswith("Multi") else [c])
+            out = [{"type": "Feature", "properties": out[0]["properties"],
+                    "geometry": {"type": "Multi" + kind, "coordinates": parts}}]
         dst = os.path.join(a.dst, os.path.basename(f))
         with open(dst, "w") as fh:
             json.dump({"type": "FeatureCollection", "features": out}, fh, separators=(",", ":"))

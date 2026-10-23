@@ -145,13 +145,28 @@ dialog p { margin: 0 0 10px; }
 .layers .opacity { margin: 0 0 4px 24px; }
 .layers .opacity input { accent-color: var(--gold); width: 100%; }
 
-/* FUMAP badge, bottom-left above the scale bar */
-.fumap { position: absolute; left: 10px; bottom: 34px; z-index: 1; display: flex; align-items: center; gap: 8px;
-  max-width: 220px; padding: 4px 9px 4px 4px; border-radius: 8px; text-decoration: none; color: var(--ink);
-  background: rgba(10,15,36,.55); border: 1px solid rgba(255,211,0,.35); opacity: .8; transition: opacity .2s; }
-.fumap:hover, .fumap:focus-visible { opacity: 1; }
-.fumap img { width: 66px; height: auto; flex: none; }
-.fumap span { font: 600 10px/1.25 var(--head); letter-spacing: .03em; color: var(--muted); }
-.fumap b { display: block; font: 700 14px/1.1 var(--head); letter-spacing: .12em; color: var(--gold); }
-@media (max-width: 1290px) { .fumap span { display: none; } .fumap { padding-right: 5px; } }
-@media (max-width: 760px) { .fumap { display: none; } }
+/* FUMAP circular badge, bottom-left above the scale bar */
+.fumap { position: absolute; left: 10px; bottom: 34px; z-index: 1; width: 92px; height: 92px; display: block;
+  opacity: .82; transition: opacity .2s, transform .2s; filter: drop-shadow(0 3px 6px rgba(0,0,0,.5)); }
+.fumap:hover, .fumap:focus-visible { opacity: 1; transform: scale(1.04); }
+.fumap svg { width: 100%; height: 100%; display: block; }
+.fumap .disc { fill: rgba(10,15,36,.78); stroke: var(--gold); stroke-width: 1.5; }
+.fumap .inner { fill: var(--navy); stroke: rgba(255,211,0,.55); stroke-width: 1; }
+.fumap .ring { font: 700 7.6px var(--head); letter-spacing: .06em; fill: var(--gold-l); }
+.fumap .mark { font: 700 13px var(--head); letter-spacing: .08em; fill: var(--gold); }
+
+@media (max-width: 760px) {
+  .fumap { left: auto; right: 10px; top: 10px; bottom: auto; width: 66px; height: 66px; }
+  .maplibregl-ctrl-top-right { top: 76px; }
+}
+
+/* phone header: let the title wrap onto two lines instead of squashing */
+@media (max-width: 520px) {
+  .top { gap: 8px; }
+  .plate { padding: 4px 6px; }
+  .plate img { height: 22px; }
+  .wordmark { transform: none; flex: 1; }
+  .wordmark b { white-space: normal; font-size: 16px; line-height: 1.05; -webkit-text-stroke: .6px #2a1205; }
+  .top .sp { display: none; }
+  #about-btn { padding: 7px 9px; font-size: 11px; flex: none; }
+}

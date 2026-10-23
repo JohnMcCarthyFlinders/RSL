@@ -28,9 +28,14 @@
   <main>
     <div id="map"></div>
 
-    <a class="fumap" href="https://www.flinders.edu.au/study/courses/postgraduate-maritime-archaeology" target="_blank" rel="noopener" title="Flinders University Maritime Archaeology Program">
-      <img src="img/rov.svg" alt="">
-      <span><b>FUMAP</b>Flinders University Maritime Archaeology Program</span>
+    <a class="fumap" href="https://www.flinders.edu.au/study/courses/postgraduate-maritime-archaeology" target="_blank" rel="noopener" title="Flinders University Maritime Archaeology Program" aria-label="FUMAP: Flinders University Maritime Archaeology Program">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><path id="fumap-ring" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs>
+        <circle cx="50" cy="50" r="48" class="disc"/>
+        <circle cx="50" cy="50" r="27" class="inner"/>
+        <text class="ring"><textPath href="#fumap-ring" textLength="228" lengthAdjust="spacing">FLINDERS UNIVERSITY · MARITIME ARCHAEOLOGY PROGRAM ·</textPath></text>
+        <text x="50" y="54.5" text-anchor="middle" class="mark">FUMAP</text>
+      </svg>
     </a>
 
     <aside class="win layers" aria-label="Map layers">

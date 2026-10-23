@@ -138,6 +138,11 @@ dialog p { margin: 0 0 10px; }
 .maplibregl-popup-content h3 { margin: 0 0 4px; font: 700 14px var(--head); color: var(--gold); text-transform: uppercase; letter-spacing: .06em; }
 .maplibregl-popup-content table { font-size: 12px; }
 .maplibregl-popup-content td:first-child { color: var(--muted); padding-right: 8px; }
+.site-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; padding-right: 14px; }
+.site-head h3 { margin: 0; }
+.site-pic { margin: 0; flex: none; text-align: center; }
+.site-pic img { display: block; width: 64px; height: 64px; image-rendering: pixelated; border: 2px solid var(--gold); border-radius: 4px; box-shadow: 0 2px 0 #000; }
+.site-pic figcaption { font-size: 10px; color: var(--muted); margin-top: 3px; white-space: nowrap; }
 .maplibregl-popup-close-button { color: #fff; }
 
 @media (max-width: 760px) {

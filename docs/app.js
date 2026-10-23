@@ -192,10 +192,12 @@
       const el = document.createElement("button");
       el.className = "site";
       el.innerHTML = `<span class="pin"></span><span class="name">${esc(p.name || "")}</span>`;
-      const rows = Object.entries(p).filter(([k]) => k !== "name")
+      const rows = Object.entries(p).filter(([k]) => !["name", "image", "image_alt", "image_caption"].includes(k))
         .map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("");
+      const pic = p.image ? `<figure class="site-pic"><img src="${esc(p.image)}" alt="${esc(p.image_alt || "")}" width="64" height="64">`
+        + (p.image_caption ? `<figcaption>${esc(p.image_caption)}</figcaption>` : "") + "</figure>" : "";
       const popup = new maplibregl.Popup({ offset: 12 })
-        .setHTML(`<h3>${esc(p.name || "Site")}</h3><table>${rows}</table>`);
+        .setHTML(`<div class="site-head">${pic}<h3>${esc(p.name || "Site")}</h3></div><table>${rows}</table>`);
       siteMarkers.push(new maplibregl.Marker({ element: el, anchor: "left", offset: [-7, 0] })
         .setLngLat(f.geometry.coordinates).setPopup(popup).addTo(map));
     }

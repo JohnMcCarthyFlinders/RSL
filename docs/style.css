@@ -142,3 +142,5 @@ dialog p { margin: 0 0 10px; }
 @media (max-width: 420px) {
   .layers .field { display: none; }
 }
+.layers .opacity { margin: 0 0 4px 24px; }
+.layers .opacity input { accent-color: var(--gold); width: 100%; }

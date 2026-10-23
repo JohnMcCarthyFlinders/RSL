@@ -11,17 +11,23 @@
   const SHORE_COLOR = "#FFD300";
 
   const BASEMAPS = {
-    ocean: {
-      label: "Esri Ocean (bathymetry)",
-      tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"],
-      attribution: "Esri, GEBCO, NOAA, Garmin, HERE and other contributors",
-      maxzoom: 13,
-    },
     imagery: {
       label: "Esri satellite imagery",
       tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
       attribution: "Esri, Maxar, Earthstar Geographics and the GIS User Community",
       maxzoom: 18,
+    },
+    sentinel: {
+      label: "Sentinel-2 cloudless (EOX)",
+      tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg"],
+      attribution: "Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020)",
+      maxzoom: 15,
+    },
+    ocean: {
+      label: "Esri Ocean (bathymetry)",
+      tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"],
+      attribution: "Esri, GEBCO, NOAA, Garmin, HERE and other contributors",
+      maxzoom: 13,
     },
     osm: {
       label: "OpenStreetMap",
@@ -66,7 +72,7 @@
       attribution: b.attribution, maxzoom: b.maxzoom });
     const first = map.getStyle().layers.find((l) => l.id !== "basemap");
     map.addLayer({ id: "basemap", type: "raster", source: "basemap" }, first && first.id);
-    try { localStorage.setItem("basemap", key); } catch (e) { /* storage blocked */ }
+    try { localStorage.setItem("basemap-v2", key); } catch (e) { /* storage blocked */ }
   }
 
   function addDataLayers() {
@@ -74,7 +80,7 @@
     map.addSource("shore", { type: "geojson", data: EMPTY });
     map.addSource("lgm", { type: "geojson", data: EMPTY });
     map.addLayer({ id: "land-fill", type: "fill", source: "land",
-      paint: { "fill-color": LAND_COLOR, "fill-opacity": 0.5 } });
+      paint: { "fill-color": LAND_COLOR, "fill-opacity": 0.35 } });
     map.addLayer({ id: "lgm-line", type: "line", source: "lgm",
       layout: { visibility: "none" },
       paint: { "line-color": "#ffffff", "line-width": 1.2, "line-dasharray": [3, 2], "line-opacity": 0.8 } });
@@ -259,15 +265,16 @@
     });
 
     window.addEventListener("resize", drawChart);
+    $("land-opacity").addEventListener("input", (e) => map.setPaintProperty("land-fill", "fill-opacity", Number(e.target.value)));
     $("about-btn").addEventListener("click", () => $("about").showModal());
   }
 
   function initBasemapPicker() {
     const sel = $("basemap");
     for (const [k, b] of Object.entries(BASEMAPS)) sel.add(new Option(b.label, k));
-    let key = "ocean";
-    try { key = localStorage.getItem("basemap") || key; } catch (e) { /* storage blocked */ }
-    if (!BASEMAPS[key]) key = "ocean";
+    let key = "imagery";
+    try { key = localStorage.getItem("basemap-v2") || key; } catch (e) { /* storage blocked */ }
+    if (!BASEMAPS[key]) key = "imagery";
     sel.value = key;
     setBasemap(key);
     sel.addEventListener("change", () => setBasemap(sel.value));

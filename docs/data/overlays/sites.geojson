@@ -1,0 +1,14 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Example site",
+        "note": "Replace this file with your own points. Every property is shown in the popup.",
+        "location": "Approximate: western Arnhem Land"
+      },
+      "geometry": { "type": "Point", "coordinates": [132.9, -12.5] }
+    }
+  ]
+}

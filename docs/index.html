@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sahul Shelf Shorelines</title>
+  <meta name="description" content="Palaeo-shorelines of the Arafura and Timor Sea over the last 100,000 years">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="map"></div>
+
+  <header class="panel title">
+    <h1>Sahul Shelf Shorelines</h1>
+    <p>Exposed land and coastline of the Arafura and Timor Sea, 0–100 ka</p>
+    <p id="demo-banner" hidden>Demo data: synthetic shorelines, not real bathymetry</p>
+  </header>
+
+  <aside class="panel layers" aria-label="Map layers">
+    <label class="basemap">Base map
+      <select id="basemap"></select>
+    </label>
+    <label><input type="checkbox" id="lyr-land" checked> Exposed land</label>
+    <label><input type="checkbox" id="lyr-shore" checked> Shoreline</label>
+    <label><input type="checkbox" id="lyr-lgm"> Lowest shoreline (reference)</label>
+    <label><input type="checkbox" id="lyr-sites" checked> Sites</label>
+  </aside>
+
+  <section class="panel timeline" aria-label="Time controls">
+    <div class="readout">
+      <button id="play" aria-label="Play">▶</button>
+      <div>
+        <div class="age"><span id="age">0</span> ka</div>
+        <div class="sl">Sea level <span id="sl">0</span> m</div>
+      </div>
+      <label class="speed">Speed
+        <select id="speed">
+          <option value="900">Slow</option>
+          <option value="400" selected>Normal</option>
+          <option value="150">Fast</option>
+        </select>
+      </label>
+    </div>
+    <svg id="chart" role="img" aria-label="Sea level curve"></svg>
+    <input id="slider" type="range" min="0" max="100" step="1" value="0" aria-label="Age in thousands of years">
+    <div class="ticks"><span>100 ka</span><span>present</span></div>
+    <p class="source" id="source"></p>
+  </section>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

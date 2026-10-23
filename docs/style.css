@@ -132,7 +132,8 @@ dialog p { margin: 0 0 10px; }
   .top { gap: 10px; padding: 0 10px; }
   .plate img { height: 24px; }
   .wordmark b { font-size: 17px; }
-  .wordmark span, .chip { display: none; }
+  .chip { display: none; }
+  .wordmark span { font-size: 9px; letter-spacing: .12em; margin-top: 3px; }
   .layers { top: auto; bottom: 252px; right: 10px; width: 200px; padding: 10px; }
   .layers h3 { display: none; }
   .timeline { bottom: 10px; padding: 10px; }
@@ -145,19 +146,24 @@ dialog p { margin: 0 0 10px; }
 .layers .opacity { margin: 0 0 4px 24px; }
 .layers .opacity input { accent-color: var(--gold); width: 100%; }
 
-/* FUMAP circular badge, bottom-left above the scale bar */
-.fumap { position: absolute; left: 10px; bottom: 34px; z-index: 1; width: 92px; height: 92px; display: block;
-  opacity: .82; transition: opacity .2s, transform .2s; filter: drop-shadow(0 3px 6px rgba(0,0,0,.5)); }
-.fumap:hover, .fumap:focus-visible { opacity: 1; transform: scale(1.04); }
-.fumap svg { width: 100%; height: 100%; display: block; }
-.fumap .disc { fill: rgba(10,15,36,.78); stroke: var(--gold); stroke-width: 1.5; }
+/* FUMAP circular badge, top-left of the map, with an obvious link label */
+.fumap { position: absolute; left: 14px; top: 14px; z-index: 2; width: 176px; display: flex; flex-direction: column;
+  align-items: center; gap: 6px; text-decoration: none; transition: transform .2s;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.55)); }
+.fumap:hover, .fumap:focus-visible { transform: scale(1.03); }
+.fumap svg { width: 100%; height: auto; display: block; }
+.fumap .disc { fill: rgba(10,15,36,.85); stroke: var(--gold); stroke-width: 1.5; }
 .fumap .inner { fill: var(--navy); stroke: rgba(255,211,0,.55); stroke-width: 1; }
 .fumap .ring { font: 700 7.6px var(--head); letter-spacing: .06em; fill: var(--gold-l); }
 .fumap .mark { font: 700 13px var(--head); letter-spacing: .08em; fill: var(--gold); }
+.fumap .visit { font: 700 12px/1 var(--head); letter-spacing: .08em; text-transform: uppercase; color: #151b33;
+  background: linear-gradient(180deg, #fff08a, var(--gold) 50%, var(--gold-d)); border: 2px solid #fff4b8;
+  border-radius: 999px; padding: 6px 12px; box-shadow: 0 3px 0 #5f4800; white-space: nowrap; }
+.fumap:hover .visit { text-decoration: underline; }
 
 @media (max-width: 760px) {
-  .fumap { left: auto; right: 10px; top: 10px; bottom: auto; width: 66px; height: 66px; }
-  .maplibregl-ctrl-top-right { top: 76px; }
+  .fumap { left: 10px; top: 10px; width: 108px; gap: 4px; }
+  .fumap .visit { font-size: 10px; padding: 4px 8px; }
 }
 
 /* phone header: let the title wrap onto two lines instead of squashing */

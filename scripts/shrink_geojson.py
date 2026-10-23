@@ -14,13 +14,20 @@ import glob
 import json
 import os
 
-from shapely.geometry import mapping, shape
+from shapely.geometry import MultiPolygon, Polygon, mapping, shape
 
 
 def round_coords(c, nd):
     if isinstance(c[0], (int, float)):
         return [round(c[0], nd), round(c[1], nd)]
     return [round_coords(x, nd) for x in c]
+
+
+def drop_small_holes(g, min_area):
+    """Remove interior rings (pits, lakes) smaller than min_area (deg^2)."""
+    polys = getattr(g, "geoms", [g])
+    out = [Polygon(p.exterior, [r for r in p.interiors if Polygon(r).area >= min_area]) for p in polys]
+    return out[0] if len(out) == 1 else MultiPolygon(out)
 
 
 def main():
@@ -45,7 +52,10 @@ def main():
         for feat in fc["features"]:
             if not feat.get("geometry"):
                 continue
-            g = shape(feat["geometry"]).simplify(a.tol, preserve_topology=True)
+            g = shape(feat["geometry"])
+            if g.geom_type.endswith("Polygon"):
+                g = drop_small_holes(g, a.min_km2 / km_per_deg ** 2)
+            g = g.simplify(a.tol, preserve_topology=True)
             if g.is_empty:
                 continue
             if g.geom_type.endswith("LineString") and g.length * km_per_deg < a.min_km:

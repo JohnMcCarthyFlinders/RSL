@@ -7,8 +7,8 @@
   "use strict";
 
   const DATA = "data/";
-  const LAND_COLOR = "#d9b86c";
-  const SHORE_COLOR = "#f08a24";
+  const LAND_COLOR = "#e8c27a";
+  const SHORE_COLOR = "#FFD300";
 
   const BASEMAPS = {
     ocean: {
@@ -74,12 +74,15 @@
     map.addSource("shore", { type: "geojson", data: EMPTY });
     map.addSource("lgm", { type: "geojson", data: EMPTY });
     map.addLayer({ id: "land-fill", type: "fill", source: "land",
-      paint: { "fill-color": LAND_COLOR, "fill-opacity": 0.45 } });
+      paint: { "fill-color": LAND_COLOR, "fill-opacity": 0.5 } });
     map.addLayer({ id: "lgm-line", type: "line", source: "lgm",
       layout: { visibility: "none" },
       paint: { "line-color": "#ffffff", "line-width": 1.2, "line-dasharray": [3, 2], "line-opacity": 0.8 } });
+    map.addLayer({ id: "shore-casing", type: "line", source: "shore",
+      paint: { "line-color": "#000000", "line-opacity": 0.6,
+        "line-width": ["interpolate", ["linear"], ["zoom"], 3, 3, 8, 5] } });
     map.addLayer({ id: "shore-line", type: "line", source: "shore",
-      paint: { "line-color": SHORE_COLOR, "line-width": ["interpolate", ["linear"], ["zoom"], 3, 1, 8, 2.5] } });
+      paint: { "line-color": SHORE_COLOR, "line-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 8, 3] } });
   }
 
   // Sites are DOM markers (no glyph server needed for labels)
@@ -192,6 +195,7 @@
       const bot = ages.slice().reverse().map((a) => `${chart.x(a.age_ka)},${chart.y(a[band[0]])}`);
       out += `<polygon class="band" points="${top.concat(bot).join(" ")}"/>`;
     }
+    if (lo < 0 && hi > 0) out += `<line class="zero" x1="${l}" x2="${chart.w - r}" y1="${chart.y(0)}" y2="${chart.y(0)}"/>`;
     out += `<polyline class="curve" points="${ages.map((a) => `${chart.x(a.age_ka)},${chart.y(a.sea_level_m)}`).join(" ")}"/>`;
     out += `<line class="cursor" id="cursor" y1="${t}" y2="${chart.h - b}"/><circle class="dot" id="dot" r="4"/>`;
     svg.innerHTML = out;
@@ -238,7 +242,7 @@
       stop(); show(nearestIndex(chart.ageAt(e.clientX - r.left)));
     });
     document.addEventListener("keydown", (e) => {
-      if (e.target.tagName === "SELECT") return;
+      if (e.target.tagName === "SELECT" || e.target.id === "slider") return;
       if (e.key === "ArrowLeft") { stop(); show(current + 1); e.preventDefault(); }
       if (e.key === "ArrowRight") { stop(); show(current - 1); e.preventDefault(); }
       if (e.key === " " && e.target.tagName !== "BUTTON") { playing ? stop() : play(); e.preventDefault(); }
@@ -248,13 +252,14 @@
       for (const l of layers) if (map.getLayer(l)) map.setLayoutProperty(l, "visibility", e.target.checked ? "visible" : "none");
     });
     toggle("lyr-land", ["land-fill"]);
-    toggle("lyr-shore", ["shore-line"]);
+    toggle("lyr-shore", ["shore-casing", "shore-line"]);
     toggle("lyr-lgm", ["lgm-line"]);
     $("lyr-sites").addEventListener("change", (e) => {
       for (const m of siteMarkers) m.getElement().style.display = e.target.checked ? "" : "none";
     });
 
     window.addEventListener("resize", drawChart);
+    $("about-btn").addEventListener("click", () => $("about").showModal());
   }
 
   function initBasemapPicker() {
@@ -276,20 +281,21 @@
       const r = await fetch(DATA + "manifest.json");
       manifest = await r.json();
     } catch (e) {
-      $("source").textContent = "Could not load data/manifest.json. Serve this folder over http (not file://).";
+      $("demo-banner").textContent = "Could not load map data";
+      $("demo-banner").hidden = false;
+      console.error("Could not load data/manifest.json. Serve this folder over http (not file://).", e);
       return;
     }
     ages = manifest.ages.slice().sort((a, b) => a.age_ka - b.age_ka);
     $("demo-banner").hidden = !manifest.demo;
-    $("source").textContent = [manifest.sea_level_table && "Sea level: " + manifest.sea_level_table,
-      manifest.source_dem && "Elevation: " + manifest.source_dem].filter(Boolean).join(" · ");
-    if (manifest.bounds) map.fitBounds([[manifest.bounds[0], manifest.bounds[1]], [manifest.bounds[2], manifest.bounds[3]]], { padding: 40, duration: 0 });
+    $("source").textContent = [manifest.sea_level_table && "Sea level table: " + manifest.sea_level_table,
+      manifest.source_dem && "Elevation: " + manifest.source_dem].filter(Boolean).join(" · ") + ".";
+    if (manifest.bounds) map.fitBounds([[manifest.bounds[0], manifest.bounds[1]], [manifest.bounds[2], manifest.bounds[3]]], { padding: { top: 30, bottom: 260, left: 30, right: 30 }, duration: 0 });
 
     // Reference: the lowest shoreline in the record (usually the LGM)
     const lowest = ages.reduce((m, a) => (a.sea_level_m < m.sea_level_m ? a : m), ages[0]);
     load(lowest.shoreline).then((d) => map.getSource("lgm").setData(d));
-    $("lyr-lgm").parentElement.lastChild.textContent =
-      ` Lowest shoreline (${fmtAge(lowest.age_ka)} ka, ${fmtSL(lowest.sea_level_m)} m)`;
+    $("lgm-label").textContent = `Lowest shoreline (${fmtAge(lowest.age_ka)} ka, ${fmtSL(lowest.sea_level_m)} m)`;
 
     await addSites();
     wireControls();

@@ -1,52 +1,77 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-AU">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sahul Shelf Shorelines</title>
-  <meta name="description" content="Palaeo-shorelines of the Arafura and Timor Sea over the last 100,000 years">
+  <meta name="description" content="Palaeo-shorelines of the Arafura and Timor Sea over the last 100,000 years. Flinders University.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="map"></div>
-
-  <header class="panel title">
-    <h1>Sahul Shelf Shorelines</h1>
-    <p>Exposed land and coastline of the Arafura and Timor Sea, 0–100 ka</p>
-    <p id="demo-banner" hidden>Demo data: synthetic shorelines, not real bathymetry</p>
+  <header class="top">
+    <a class="plate" href="https://www.flinders.edu.au/" target="_blank" rel="noopener">
+      <img src="img/flinders-logo.png" alt="Flinders University">
+    </a>
+    <div class="wordmark">
+      <b>Sahul Shelf Shorelines</b>
+      <span>ARAFURA &amp; TIMOR SEA · 0–100 KA</span>
+    </div>
+    <div class="sp"></div>
+    <p id="demo-banner" class="chip" hidden>Demo data · synthetic shorelines</p>
+    <button id="about-btn" class="btn alt small" aria-haspopup="dialog">About</button>
   </header>
 
-  <aside class="panel layers" aria-label="Map layers">
-    <label class="basemap">Base map
-      <select id="basemap"></select>
-    </label>
-    <label><input type="checkbox" id="lyr-land" checked> Exposed land</label>
-    <label><input type="checkbox" id="lyr-shore" checked> Shoreline</label>
-    <label><input type="checkbox" id="lyr-lgm"> Lowest shoreline (reference)</label>
-    <label><input type="checkbox" id="lyr-sites" checked> Sites</label>
-  </aside>
+  <main>
+    <div id="map"></div>
 
-  <section class="panel timeline" aria-label="Time controls">
-    <div class="readout">
-      <button id="play" aria-label="Play">▶</button>
-      <div>
-        <div class="age"><span id="age">0</span> ka</div>
-        <div class="sl">Sea level <span id="sl">0</span> m</div>
-      </div>
-      <label class="speed">Speed
-        <select id="speed">
-          <option value="900">Slow</option>
-          <option value="400" selected>Normal</option>
-          <option value="150">Fast</option>
-        </select>
+    <aside class="win layers" aria-label="Map layers">
+      <h3>Layers</h3>
+      <label class="field">Base map
+        <select id="basemap"></select>
       </label>
-    </div>
-    <svg id="chart" role="img" aria-label="Sea level curve"></svg>
-    <input id="slider" type="range" min="0" max="100" step="1" value="0" aria-label="Age in thousands of years">
-    <div class="ticks"><span>100 ka</span><span>present</span></div>
-    <p class="source" id="source"></p>
-  </section>
+      <label class="tog"><input type="checkbox" id="lyr-land" checked><i class="sw land"></i> Exposed land</label>
+      <label class="tog"><input type="checkbox" id="lyr-shore" checked><i class="sw shore"></i> Shoreline</label>
+      <label class="tog"><input type="checkbox" id="lyr-lgm"><i class="sw lgm"></i> <span id="lgm-label">Lowest shoreline</span></label>
+      <label class="tog"><input type="checkbox" id="lyr-sites" checked><i class="sw site"></i> Sites</label>
+    </aside>
+
+    <section class="win timeline" aria-label="Time controls">
+      <div class="readout">
+        <button id="play" class="btn play" aria-label="Play">▶</button>
+        <div class="stat">
+          <small>Age</small>
+          <div class="big"><span id="age">0</span><em>ka</em></div>
+        </div>
+        <div class="stat">
+          <small>Sea level</small>
+          <div class="big"><span id="sl">0</span><em>m</em></div>
+        </div>
+        <label class="field speed">Speed
+          <select id="speed">
+            <option value="900">Slow</option>
+            <option value="400" selected>Normal</option>
+            <option value="150">Fast</option>
+          </select>
+        </label>
+      </div>
+      <svg id="chart" role="img" aria-label="Sea level curve, click to choose an age"></svg>
+      <input id="slider" type="range" min="0" max="100" step="1" value="0" aria-label="Age in thousands of years">
+      <div class="ticks"><span>◀ 100 ka</span><span>Present ▶</span></div>
+    </section>
+  </main>
+
+  <dialog id="about" class="win">
+    <h3>About this map</h3>
+    <p>Each step of the slider shows where the coast of the Sahul shelf sat at that time, from 100,000 years ago to the present. Shorelines are contours of the GEBCO seabed elevation grid drawn at the sea level of each age.</p>
+    <p id="source" class="muted"></p>
+    <p class="muted">Sea level combines the global curve of Spratt &amp; Lisiecki (2016) with Bonaparte Gulf data (Yokoyama et al. 2000; Ishiwa et al. 2019) for 11–27 ka. The seabed has changed since then through sediment, reef growth and subsidence, so treat the shorelines as approximate.</p>
+    <p class="muted">Keys: ◀ ▶ step through time, Space plays and pauses.</p>
+    <form method="dialog"><button class="btn small">Close</button></form>
+  </dialog>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
   <script src="app.js"></script>

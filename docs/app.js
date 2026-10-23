@@ -10,37 +10,16 @@
   const LAND_COLOR = "#e8c27a";
   const SHORE_COLOR = "#FFD300";
 
+  // All Esri basemaps: free, no API key, served from the same host
+  const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/";
+  const esri = (label, service, maxzoom, attribution) =>
+    ({ label, tiles: [ESRI + service + "/MapServer/tile/{z}/{y}/{x}"], maxzoom, attribution });
   const BASEMAPS = {
-    imagery: {
-      label: "Esri satellite imagery",
-      tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
-      attribution: "Esri, Maxar, Earthstar Geographics and the GIS User Community",
-      maxzoom: 18,
-    },
-    sentinel: {
-      label: "Sentinel-2 cloudless (EOX)",
-      tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg"],
-      attribution: "Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020)",
-      maxzoom: 15,
-    },
-    ocean: {
-      label: "Esri Ocean (bathymetry)",
-      tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"],
-      attribution: "Esri, GEBCO, NOAA, Garmin, HERE and other contributors",
-      maxzoom: 13,
-    },
-    osm: {
-      label: "OpenStreetMap",
-      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-      attribution: "© OpenStreetMap contributors",
-      maxzoom: 19,
-    },
-    dark: {
-      label: "CARTO dark",
-      tiles: ["https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"],
-      attribution: "© OpenStreetMap contributors © CARTO",
-      maxzoom: 19,
-    },
+    imagery: esri("Satellite imagery", "World_Imagery", 18, "Esri, Maxar, Earthstar Geographics and the GIS User Community"),
+    ocean: esri("Ocean (bathymetry)", "Ocean/World_Ocean_Base", 13, "Esri, GEBCO, NOAA, Garmin, HERE and other contributors"),
+    topo: esri("Topographic", "World_Topo_Map", 18, "Esri, HERE, Garmin, USGS, NGA and other contributors"),
+    natgeo: esri("National Geographic", "NatGeo_World_Map", 16, "National Geographic, Esri, Garmin, HERE, UNEP-WCMC, USGS, NASA"),
+    dark: esri("Dark grey", "Canvas/World_Dark_Gray_Base", 16, "Esri, HERE, Garmin, OpenStreetMap contributors"),
   };
 
   const EMPTY = { type: "FeatureCollection", features: [] };

@@ -46,6 +46,7 @@
   const EMPTY = { type: "FeatureCollection", features: [] };
   const cache = new Map();
   let manifest = null;
+  let version = "";       // cache-buster from manifest.generated, so re-exports never show stale files
   let ages = [];          // sorted ascending
   let current = 0;        // index into ages
   let playing = null;
@@ -96,7 +97,7 @@
   async function addSites() {
     let data;
     try {
-      const r = await fetch(DATA + "overlays/sites.geojson");
+      const r = await fetch(DATA + "overlays/sites.geojson", { cache: "no-cache" });
       if (!r.ok) return;
       data = await r.json();
     } catch (e) { return; }
@@ -123,7 +124,7 @@
   function load(path) {
     if (!path) return Promise.resolve(EMPTY);
     if (!cache.has(path)) {
-      cache.set(path, fetch(DATA + path).then((r) => (r.ok ? r.json() : EMPTY)).catch(() => EMPTY));
+      cache.set(path, fetch(DATA + path + version).then((r) => (r.ok ? r.json() : EMPTY)).catch(() => EMPTY));
     }
     return cache.get(path);
   }
@@ -285,7 +286,7 @@
     addDataLayers();
     initBasemapPicker();
     try {
-      const r = await fetch(DATA + "manifest.json");
+      const r = await fetch(DATA + "manifest.json", { cache: "no-cache" });
       manifest = await r.json();
     } catch (e) {
       $("demo-banner").textContent = "Could not load map data";
@@ -293,6 +294,7 @@
       console.error("Could not load data/manifest.json. Serve this folder over http (not file://).", e);
       return;
     }
+    version = "?v=" + encodeURIComponent(manifest.generated || Date.now());
     ages = manifest.ages.slice().sort((a, b) => a.age_ka - b.age_ka);
     $("demo-banner").hidden = !manifest.demo;
     if (!ages.some((a) => a.land)) {

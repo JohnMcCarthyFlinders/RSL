@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="style.css?v=20261023i">
+  <link rel="stylesheet" href="style.css?v=20261023j">
 </head>
 <body>
   <header class="top">
@@ -61,6 +61,8 @@
       <label class="tog"><input type="checkbox" id="lyr-sites" checked><i class="sw site"></i> Sites</label>
       <label class="tog"><input type="checkbox" id="lyr-faunal"><i class="sw faunal"></i> Faunal lines</label>
       <ul id="faunal-key" class="faunal-key" hidden></ul>
+      <label class="tog"><input type="checkbox" id="lyr-routes"><i class="sw routes"></i> Colonisation routes</label>
+      <ul id="routes-key" class="faunal-key dashed" hidden></ul>
       </div>
       </details>
     </aside>
@@ -95,12 +97,12 @@
     <p>Each step of the slider shows where the coastline sat at that time, from 100,000 years ago to the present. Shorelines are contours of the GEBCO seabed elevation grid drawn at the sea level of each age.</p>
     <p id="source" class="muted"></p>
     <p class="muted">Sea level combines the global curve of Spratt &amp; Lisiecki (2016) with Bonaparte Gulf data (Yokoyama et al. 2000; Ishiwa et al. 2019) for 11–27 ka. The seabed has changed since then through sediment, reef growth and subsidence, so treat the shorelines as approximate.</p>
-    <p class="muted">Faunal lines (Wallace, Huxley, Weber, Lydekker) are schematic traces after standard published maps, not surveyed boundaries.</p>
+    <p class="muted">Faunal lines (Wallace, Huxley, Weber, Lydekker) are schematic traces after standard published maps, not surveyed boundaries. Colonisation routes are traced from Bird et al. (2019), <i>Scientific Reports</i> 9: 8220, <a href="https://doi.org/10.1038/s41598-019-42946-9" target="_blank" rel="noopener">doi:10.1038/s41598-019-42946-9</a>.</p>
     <p class="muted">Keys: ◀ ▶ step through time, Space plays and pauses. Measure: click points on the map for distances in km, Esc to finish.</p>
     <form method="dialog"><button class="btn small">Close</button></form>
   </dialog>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="app.js?v=20261023i"></script>
+  <script src="app.js?v=20261023j"></script>
 </body>
 </html>

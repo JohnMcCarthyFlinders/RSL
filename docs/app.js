@@ -137,45 +137,52 @@
       paint: { "line-color": SHORE_COLOR, "line-width": ["interpolate", ["linear"], ["zoom"], 3, 1.5, 8, 3] } });
   }
 
-  // Faunal boundary lines (Wallace, Huxley, Weber, Lydekker): coloured lines, DOM labels, popups
-  const faunalLabels = [];
-  async function addFaunal() {
+  // Line overlays with DOM labels, a key in the layers panel and click popups:
+  // faunal boundary lines (Wallace, Huxley, Weber, Lydekker) and colonisation routes (Bird et al. 2019)
+  const overlayLabels = {};
+  async function addLineOverlay(id, file, opts) {
     let data;
     try {
-      const r = await fetch(DATA + "overlays/faunal_lines.geojson", { cache: "no-cache" });
+      const r = await fetch(DATA + "overlays/" + file, { cache: "no-cache" });
       if (!r.ok) return;
       data = await r.json();
     } catch (e) { return; }
-    map.addSource("faunal", { type: "geojson", data });
+    map.addSource(id, { type: "geojson", data });
     const before = map.getLayer("measure-line") ? "measure-line" : undefined;
-    const vis = $("lyr-faunal").checked ? "visible" : "none";
-    map.addLayer({ id: "faunal-casing", type: "line", source: "faunal", layout: { visibility: vis, "line-cap": "round" },
+    const vis = $("lyr-" + id).checked ? "visible" : "none";
+    const line = { "line-color": ["get", "color"], "line-width": ["interpolate", ["linear"], ["zoom"], 3, 2.5, 8, 4] };
+    if (opts.dash) line["line-dasharray"] = opts.dash;
+    map.addLayer({ id: id + "-casing", type: "line", source: id, layout: { visibility: vis, "line-cap": "round", "line-join": "round" },
       paint: { "line-color": "#000", "line-opacity": 0.55, "line-width": ["interpolate", ["linear"], ["zoom"], 3, 4.5, 8, 7] } }, before);
-    map.addLayer({ id: "faunal-line", type: "line", source: "faunal", layout: { visibility: vis, "line-cap": "round" },
-      paint: { "line-color": ["get", "color"], "line-width": ["interpolate", ["linear"], ["zoom"], 3, 2.5, 8, 4] } }, before);
-    const key = $("faunal-key");
+    map.addLayer({ id: id + "-line", type: "line", source: id, layout: { visibility: vis, "line-join": "round" }, paint: line }, before);
+    const key = $(id + "-key");
+    const labels = overlayLabels[id] = [];
     for (const f of data.features) {
       const p = f.properties || {};
-      key.insertAdjacentHTML("beforeend", `<li><i style="background:${esc(p.color)}"></i>${esc(p.name)} (${esc(p.year)})</li>`);
+      key.insertAdjacentHTML("beforeend", `<li><i style="background:${esc(p.color)};color:${esc(p.color)}"></i>${esc(p.short || p.name)}${p.year ? ` (${esc(p.year)})` : ""}</li>`);
       if (!p.label) continue;
       const el = document.createElement("div");
       el.className = "faunal-label";
       el.style.color = p.color;
       el.innerHTML = `<b>${esc(p.name)}</b>`;
       el.style.display = vis === "visible" ? "" : "none";
-      faunalLabels.push(new maplibregl.Marker({ element: el, anchor: "left", offset: [8, 0] }).setLngLat(p.label).addTo(map));
+      labels.push(new maplibregl.Marker({ element: el, anchor: "left", offset: [8, 0] }).setLngLat(p.label).addTo(map));
     }
     key.hidden = vis !== "visible";
-    map.on("click", "faunal-line", (e) => {
+    map.on("click", id + "-line", (e) => {
       if (measure.on) return;
-      const p = e.features[0].properties;
-      new maplibregl.Popup({ offset: 6 }).setLngLat(e.lngLat)
-        .setHTML(`<h3>${esc(p.name)}</h3><table><tr><td>proposed</td><td>${esc(p.author)}, ${esc(p.year)}</td></tr><tr><td>what</td><td>${esc(p.what)}</td></tr><tr><td>position</td><td>Schematic</td></tr></table>`)
+      new maplibregl.Popup({ offset: 6, maxWidth: "300px" }).setLngLat(e.lngLat)
+        .setHTML(`<h3>${esc(e.features[0].properties.name)}</h3><table>${opts.rows(e.features[0].properties)}</table>`)
         .addTo(map);
     });
-    map.on("mouseenter", "faunal-line", () => { if (!measure.on) map.getCanvas().style.cursor = "pointer"; });
-    map.on("mouseleave", "faunal-line", () => { if (!measure.on) map.getCanvas().style.cursor = ""; });
+    map.on("mouseenter", id + "-line", () => { if (!measure.on) map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", id + "-line", () => { if (!measure.on) map.getCanvas().style.cursor = ""; });
   }
+  const row = (k, v) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`;
+  const addFaunal = () => addLineOverlay("faunal", "faunal_lines.geojson", {
+    rows: (p) => row("proposed", `${p.author}, ${p.year}`) + row("what", p.what) + row("position", "Schematic") });
+  const addRoutes = () => addLineOverlay("routes", "routes.geojson", { dash: [2.5, 1.5],
+    rows: (p) => row("what", p.what) + row("source", p.reference) + row("position", "Traced from the published map (about ±10 km)") });
 
   // Sites are DOM markers (no glyph server needed for labels)
   const siteMarkers = [];
@@ -348,11 +355,11 @@
     toggle("lyr-land", ["land-fill"]);
     toggle("lyr-shore", ["shore-casing", "shore-line"]);
     toggle("lyr-lgm", ["lgm-line"]);
-    $("lyr-faunal").addEventListener("change", (e) => {
+    for (const id of ["faunal", "routes"]) $("lyr-" + id).addEventListener("change", (e) => {
       const on = e.target.checked;
-      for (const l of ["faunal-casing", "faunal-line"]) if (map.getLayer(l)) map.setLayoutProperty(l, "visibility", on ? "visible" : "none");
-      for (const m of faunalLabels) m.getElement().style.display = on ? "" : "none";
-      $("faunal-key").hidden = !on;
+      for (const l of [id + "-casing", id + "-line"]) if (map.getLayer(l)) map.setLayoutProperty(l, "visibility", on ? "visible" : "none");
+      for (const m of overlayLabels[id] || []) m.getElement().style.display = on ? "" : "none";
+      $(id + "-key").hidden = !on;
     });
     $("lyr-sites").addEventListener("change", (e) => {
       for (const m of siteMarkers) m.getElement().style.display = e.target.checked ? "" : "none";
@@ -408,6 +415,7 @@
     $("lgm-label").textContent = `Lowest shoreline (${fmtAge(lowest.age_ka)} ka, ${fmtSL(lowest.sea_level_m)} m)`;
 
     addFaunal();
+    addRoutes();
     await addSites();
     wireControls();
     drawChart();

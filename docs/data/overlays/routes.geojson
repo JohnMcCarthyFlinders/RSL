@@ -1,0 +1,292 @@
+{
+ "type": "FeatureCollection",
+ "note": "Traced from Bird et al. 2019 (Sci Rep 9: 8220), main map, against its lat/long graticule. Approximate (about \u00b110 km).",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "north",
+    "name": "Northern colonisation route",
+    "short": "Northern route",
+    "color": "#5ec8ff",
+    "label": [
+     124.4,
+     -1.0
+    ],
+    "what": "Island-hopping route from Sulawesi through the Sula Islands, Obi, Buru and Seram to Misool, the Bird's Head and Kei, or via Halmahera, onto Sahul.",
+    "reference": "Bird, M.I., Condie, S.A., O'Connor, S. et al. 2019. Early human settlement of Sahul was not an accident. Scientific Reports 9: 8220. doi:10.1038/s41598-019-42946-9"
+   },
+   "geometry": {
+    "type": "MultiLineString",
+    "coordinates": [
+     [
+      [
+       115.394,
+       -3.327
+      ],
+      [
+       117.067,
+       -3.268
+      ],
+      [
+       118.642,
+       -3.11
+      ],
+      [
+       120.02,
+       -2.677
+      ],
+      [
+       121.398,
+       -1.988
+      ],
+      [
+       122.776,
+       -1.339
+      ],
+      [
+       123.957,
+       -1.693
+      ],
+      [
+       125.138,
+       -1.89
+      ],
+      [
+       125.925,
+       -1.929
+      ],
+      [
+       126.909,
+       -1.85
+      ],
+      [
+       127.795,
+       -1.594
+      ],
+      [
+       128.051,
+       -1.142
+      ],
+      [
+       127.894,
+       -0.512
+      ],
+      [
+       127.697,
+       0.079
+      ],
+      [
+       127.854,
+       0.63
+      ],
+      [
+       128.583,
+       0.768
+      ],
+      [
+       129.37,
+       0.433
+      ],
+      [
+       130.354,
+       -0.276
+      ],
+      [
+       131.339,
+       -0.768
+      ],
+      [
+       132.421,
+       -1.142
+      ]
+     ],
+     [
+      [
+       125.886,
+       -1.929
+      ],
+      [
+       125.886,
+       -2.579
+      ],
+      [
+       126.161,
+       -3.11
+      ],
+      [
+       126.713,
+       -3.366
+      ],
+      [
+       127.5,
+       -3.228
+      ],
+      [
+       128.287,
+       -3.071
+      ],
+      [
+       129.272,
+       -3.071
+      ],
+      [
+       130.157,
+       -3.13
+      ],
+      [
+       130.846,
+       -3.622
+      ],
+      [
+       131.437,
+       -4.646
+      ],
+      [
+       131.988,
+       -5.63
+      ],
+      [
+       132.52,
+       -5.827
+      ],
+      [
+       133.602,
+       -5.906
+      ],
+      [
+       135.177,
+       -6.319
+      ]
+     ],
+     [
+      [
+       130.157,
+       -3.13
+      ],
+      [
+       130.453,
+       -2.48
+      ],
+      [
+       130.61,
+       -1.791
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "id": "south",
+    "name": "Southern colonisation route",
+    "short": "Southern route",
+    "color": "#ff7ac8",
+    "label": [
+     120.0,
+     -9.0
+    ],
+    "what": "Route along the Lesser Sunda chain (Flores, Alor, Timor or Wetar, Leti, Babar) to Tanimbar, with a crossing from Timor to the exposed Sahul shelf.",
+    "reference": "Bird, M.I., Condie, S.A., O'Connor, S. et al. 2019. Early human settlement of Sahul was not an accident. Scientific Reports 9: 8220. doi:10.1038/s41598-019-42946-9"
+   },
+   "geometry": {
+    "type": "MultiLineString",
+    "coordinates": [
+     [
+      [
+       115.197,
+       -8.484
+      ],
+      [
+       116.083,
+       -8.543
+      ],
+      [
+       118.051,
+       -8.622
+      ],
+      [
+       120.02,
+       -8.622
+      ],
+      [
+       121.988,
+       -8.543
+      ],
+      [
+       123.169,
+       -8.346
+      ],
+      [
+       124.35,
+       -8.228
+      ],
+      [
+       125.138,
+       -8.484
+      ],
+      [
+       126.024,
+       -8.681
+      ],
+      [
+       127.106,
+       -8.445
+      ],
+      [
+       128.681,
+       -8.15
+      ],
+      [
+       129.862,
+       -7.992
+      ],
+      [
+       131.043,
+       -7.795
+      ],
+      [
+       131.831,
+       -7.402
+      ],
+      [
+       132.618,
+       -7.165
+      ],
+      [
+       133.209,
+       -7.165
+      ],
+      [
+       133.898,
+       -7.244
+      ]
+     ],
+     [
+      [
+       126.024,
+       -8.681
+      ],
+      [
+       126.083,
+       -9.567
+      ],
+      [
+       126.319,
+       -10.354
+      ],
+      [
+       126.713,
+       -11.142
+      ],
+      [
+       127.008,
+       -11.535
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

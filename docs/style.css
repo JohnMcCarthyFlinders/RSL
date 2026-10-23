@@ -85,6 +85,8 @@ select { background: var(--field); color: var(--ink); border: 2px solid var(--fi
 .sw.shore { height: 4px; background: var(--shore); box-shadow: 0 0 0 1px #000; }
 .sw.lgm { height: 0; border-top: 3px dashed #fff; border-radius: 0; }
 .sw.faunal { height: 12px; border-radius: 0; background: linear-gradient(#4f86ff 0 3px, transparent 3px 4.5px, #ff4040 4.5px 7.5px, transparent 7.5px 9px, #34d27b 9px 12px); }
+.sw.routes { height: 10px; border-radius: 0; background: none; border-top: 3px dashed #5ec8ff; border-bottom: 3px dashed #ff7ac8; }
+.faunal-key.dashed i { background: none !important; height: 0; box-shadow: none; border-top: 3px dashed currentColor; }
 .faunal-key { list-style: none; margin: -2px 0 4px 32px; padding: 0; font-size: 12.5px; display: grid; gap: 2px; }
 .faunal-key li { display: flex; align-items: center; gap: 6px; }
 .faunal-key i { width: 16px; height: 3px; border-radius: 2px; flex: none; box-shadow: 0 0 0 1px rgba(0,0,0,.6); }
@@ -217,3 +219,4 @@ dialog p { margin: 0 0 10px; }
   .measure-box .m-hint { display: none; }
   .measure-box .btn.small { padding: 6px 8px; font-size: 11px; }
 }
+#about a { color: var(--gold); }

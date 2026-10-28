@@ -220,3 +220,6 @@ dialog p { margin: 0 0 10px; }
   .measure-box .btn.small { padding: 6px 8px; font-size: 11px; }
 }
 #about a { color: var(--gold); }
+/* Popups sit above the side panels and scroll when long */
+.maplibregl-popup { z-index: 4; }
+.maplibregl-popup-content { max-height: min(46vh, 380px); overflow-y: auto; }

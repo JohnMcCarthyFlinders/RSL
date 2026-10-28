@@ -178,6 +178,13 @@ def main():
     for i, (_, _, col) in enumerate(CLASSES):
         m = (idx == i) & domain
         rgba[m] = [int(col[1:3], 16), int(col[3:5], 16), int(col[5:7], 16), 255]
+    # MapLibre stretches an image source linearly in Web Mercator, so resample rows from
+    # equal-latitude spacing to equal-Mercator spacing (nearest row) before saving
+    merc = lambda la: np.log(np.tan(np.pi / 4 + np.radians(la) / 2))
+    ym = np.linspace(merc(north), merc(south), h * 2)             # output rows, top to bottom
+    lat_rows = np.degrees(2 * np.arctan(np.exp(ym)) - np.pi / 2)
+    src = np.clip(np.floor((north - lat_rows) / RES).astype(int), 0, h - 1)
+    rgba = rgba[src]
     ov = DATA / "overlays"
     Image.fromarray(rgba, "RGBA").save(ov / "sediment.png", optimize=True)
     meta = {

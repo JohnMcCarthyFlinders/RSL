@@ -223,3 +223,11 @@ dialog p { margin: 0 0 10px; }
 /* Popups sit above the side panels and scroll when long */
 .maplibregl-popup { z-index: 4; }
 .maplibregl-popup-content { max-height: min(46vh, 380px); overflow-y: auto; }
+
+/* Sediment model key */
+.sw.sediment { background: linear-gradient(90deg, #7d4fae 0 25%, #ece7dc 25% 45%, #fed976 45% 65%, #fd8d3c 65% 85%, #b3261e 85%); }
+.sed-key { grid-template-columns: 1fr 1fr; column-gap: 8px; font-size: 11.5px; }
+.sed-key i { height: 10px; width: 12px; border-radius: 2px; }
+.sed-key li.pts { grid-column: 1 / -1; gap: 4px; flex-wrap: wrap; color: var(--muted); }
+.sed-key i.dot { width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 0 1px #000; margin-left: 4px; }
+.sed-key i.dot.pub { background: #fff; } .sed-key i.dot.inf { background: #9aa3b8; } .sed-key i.dot.asm { background: #3b4258; }

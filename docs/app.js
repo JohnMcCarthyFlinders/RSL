@@ -184,6 +184,38 @@
   const addRoutes = () => addLineOverlay("routes", "routes.geojson", { dash: [2.5, 1.5],
     rows: (p) => row("what", p.what) + row("source", p.reference) + row("position", "Traced from the published map (about ±10 km)") });
 
+  // Modelled post-LGM sediment thickness / erosion (scripts/sediment_model.py): classified image + control points
+  async function addSediment() {
+    let meta;
+    try {
+      const r = await fetch(DATA + "overlays/sediment.json", { cache: "no-cache" });
+      if (!r.ok) return;
+      meta = await r.json();
+    } catch (e) { return; }
+    const vis = $("lyr-sediment").checked ? "visible" : "none";
+    map.addSource("sediment", { type: "image", url: DATA + "overlays/sediment.png?v=" + encodeURIComponent(meta.generated || ""), coordinates: meta.coordinates });
+    map.addLayer({ id: "sediment", type: "raster", source: "sediment", layout: { visibility: vis },
+      paint: { "raster-opacity": 0.8, "raster-resampling": "nearest", "raster-fade-duration": 0 } }, "lgm-line");
+    map.addSource("sediment-pts", { type: "geojson", data: DATA + "overlays/sediment_controls.geojson" });
+    map.addLayer({ id: "sediment-pts", type: "circle", source: "sediment-pts", layout: { visibility: vis },
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 3, 2.5, 8, 5],
+        "circle-color": ["match", ["get", "basis"], "published", "#ffffff", "inferred", "#9aa3b8", "#3b4258"],
+        "circle-stroke-color": "#000", "circle-stroke-width": 1 } });
+    $("sediment-key").innerHTML = meta.classes.map((c) => `<li><i style="background:${esc(c.color)}"></i>${esc(c.label)}</li>`).join("")
+      + `<li class="pts">Control points: <i class="dot pub"></i>published <i class="dot inf"></i>inferred <i class="dot asm"></i>assumed</li>`;
+    $("sediment-key").hidden = vis !== "visible";
+    map.on("click", "sediment-pts", (e) => {
+      if (measure.on) return;
+      const p = e.features[0].properties;
+      const val = p.kind === "erosion" ? `−${p.value_m} m (net erosion)` : `${p.value_m} m (${p.kind === "coastal" ? "at the coast" : p.kind === "source" ? "depocentre peak" : "open shelf"})`;
+      new maplibregl.Popup({ offset: 6, maxWidth: "300px" }).setLngLat(e.lngLat)
+        .setHTML(`<h3>${esc(p.name)}</h3><table>${row("thickness", val)}${row("basis", p.basis)}${p.source ? row("source", p.source) : ""}</table>`)
+        .addTo(map);
+    });
+    map.on("mouseenter", "sediment-pts", () => { if (!measure.on) map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", "sediment-pts", () => { if (!measure.on) map.getCanvas().style.cursor = ""; });
+  }
+
   // Sites are DOM markers (no glyph server needed for labels)
   const siteMarkers = [];
   async function addSites() {
@@ -355,6 +387,10 @@
     toggle("lyr-land", ["land-fill"]);
     toggle("lyr-shore", ["shore-casing", "shore-line"]);
     toggle("lyr-lgm", ["lgm-line"]);
+    $("lyr-sediment").addEventListener("change", (e) => {
+      for (const l of ["sediment", "sediment-pts"]) if (map.getLayer(l)) map.setLayoutProperty(l, "visibility", e.target.checked ? "visible" : "none");
+      $("sediment-key").hidden = !e.target.checked;
+    });
     for (const id of ["faunal", "routes"]) $("lyr-" + id).addEventListener("change", (e) => {
       const on = e.target.checked;
       for (const l of [id + "-casing", id + "-line"]) if (map.getLayer(l)) map.setLayoutProperty(l, "visibility", on ? "visible" : "none");
@@ -416,6 +452,7 @@
 
     addFaunal();
     addRoutes();
+    addSediment();
     await addSites();
     wireControls();
     drawChart();

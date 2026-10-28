@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="style.css?v=20261028b">
+  <link rel="stylesheet" href="style.css?v=20261028c">
 </head>
 <body>
   <header class="top">
@@ -56,6 +56,8 @@
       <label class="field opacity">Land fill opacity
         <input type="range" id="land-opacity" min="0" max="0.9" step="0.05" value="0.35">
       </label>
+      <label class="tog"><input type="checkbox" id="lyr-sediment"><i class="sw sediment"></i> Post-LGM sediment (model)</label>
+      <ul id="sediment-key" class="faunal-key sed-key" hidden></ul>
       <label class="tog"><input type="checkbox" id="lyr-shore" checked><i class="sw shore"></i> Shoreline</label>
       <label class="tog"><input type="checkbox" id="lyr-lgm"><i class="sw lgm"></i> <span id="lgm-label">Lowest shoreline</span></label>
       <label class="tog"><input type="checkbox" id="lyr-sites" checked><i class="sw site"></i> Sites</label>
@@ -98,11 +100,12 @@
     <p id="source" class="muted"></p>
     <p class="muted">Sea level combines the global curve of Spratt &amp; Lisiecki (2016) with Bonaparte Gulf data (Yokoyama et al. 2000; Ishiwa et al. 2019) for 11–27 ka. The seabed has changed since then through sediment, reef growth and subsidence, so treat the shorelines as approximate.</p>
     <p class="muted">Faunal lines (Wallace, Huxley, Weber, Lydekker) are schematic traces after standard published maps, not surveyed boundaries. Colonisation routes are traced from Bird et al. (2019), <i>Scientific Reports</i> 9: 8220, <a href="https://doi.org/10.1038/s41598-019-42946-9" target="_blank" rel="noopener">doi:10.1038/s41598-019-42946-9</a>.</p>
+    <p class="muted">Post-LGM sediment is a crude model: thickness of sediment laid down since the last glacial maximum (about 19 ka), and net erosion, interpolated from published cores and seismic studies plus estimates where no data exist. Click a dot for its value and source. Indicative only.</p>
     <p class="muted">Keys: ◀ ▶ step through time, Space plays and pauses. Measure: click points on the map for distances in km, Esc to finish.</p>
     <form method="dialog"><button class="btn small">Close</button></form>
   </dialog>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="app.js?v=20261028b"></script>
+  <script src="app.js?v=20261028c"></script>
 </body>
 </html>

@@ -1,0 +1,85 @@
+{
+ "bounds": [
+  104.496,
+  -21.5,
+  141.5,
+  0.0
+ ],
+ "coordinates": [
+  [
+   104.496,
+   0.0
+  ],
+  [
+   141.5,
+   0.0
+  ],
+  [
+   141.5,
+   -21.5
+  ],
+  [
+   104.496,
+   -21.5
+  ]
+ ],
+ "classes": [
+  {
+   "max": -5.0,
+   "label": "Erosion >5 m",
+   "color": "#4b2378"
+  },
+  {
+   "max": -2.0,
+   "label": "Erosion 2–5",
+   "color": "#7d4fae"
+  },
+  {
+   "max": -0.5,
+   "label": "Erosion 0.5–2",
+   "color": "#b99ad8"
+  },
+  {
+   "max": 0.5,
+   "label": "<0.5 m (relict)",
+   "color": "#ece7dc"
+  },
+  {
+   "max": 1.0,
+   "label": "0.5–1 m",
+   "color": "#fff2b2"
+  },
+  {
+   "max": 2.0,
+   "label": "1–2 m",
+   "color": "#fed976"
+  },
+  {
+   "max": 5.0,
+   "label": "2–5 m",
+   "color": "#feb24c"
+  },
+  {
+   "max": 10.0,
+   "label": "5–10 m",
+   "color": "#fd8d3c"
+  },
+  {
+   "max": 20.0,
+   "label": "10–20 m",
+   "color": "#e8562a"
+  },
+  {
+   "max": 30.0,
+   "label": "20–30 m",
+   "color": "#b3261e"
+  },
+  {
+   "max": null,
+   "label": ">30 m",
+   "color": "#6e1010"
+  }
+ ],
+ "generated": "2026-10-28T05:20:32Z",
+ "note": "Modelled post-LGM sediment thickness (m) and net erosion, from published control points. Crude: treat as indicative only."
+}

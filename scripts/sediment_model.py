@@ -36,7 +36,9 @@ OUT = ROOT / "data" / "sediment"
 RES = 0.025                     # degrees (~2.8 km)
 WEDGE_KM = 15.0                 # e-folding distance of the nearshore wedge
 BANK_RISE_M = 15.0              # a cell this much shallower than its ~30 km surroundings counts as a bank
-BANK_CAP_M = 3.0                # Holocene carbonate added on such banks (Australian shelf only)
+BANK_CAP_M = 1.0                # Holocene carbonate on banks: crusted, so only a thin cap (Timor Sea / Bonaparte only)
+# Outer NW Shelf: 5-15 m of post-LGM sediment overlaps the ~125 m lowstand shoreline (Lebrec et al. 2022)
+OUTER_NWS = dict(lon=(113.0, 123.5), top_m=-100.0, max_m=10.0)
 IDW_POWER = 2.0
 IDW_SMOOTH_KM = 60.0          # softens IDW so single points do not make bullseyes
 
@@ -143,7 +145,7 @@ def main():
 
     # carbonate caps on local seabed highs, Australian shelf (south and east of Wallacea)
     surround = ndimage.uniform_filter(np.where(domain, elev, lowest), size=int(30 / kmy) | 1)
-    aus = (LON > 116) & (LAT < -9.5) & ~((LON > 137.5) & (LAT > -9.8))
+    aus = (LON > 123.5) & (LON < 132.5) & (LAT < -9.5)
     banks = domain & aus & (elev - surround > BANK_RISE_M) & (elev < -15) & (dcoast > 20)
     lab, n = ndimage.label(banks)
     sizes = ndimage.sum(banks, lab, range(1, n + 1))
@@ -151,11 +153,24 @@ def main():
     carbonate = np.where(banks, BANK_CAP_M, 0.0)
     carbonate = ndimage.gaussian_filter(carbonate, 1.0)
 
-    thick = (background + wedge + deltas + carbonate) * (1 - scour) - erosion
+    lo_, hi_ = OUTER_NWS["lon"]
+    ramp = np.clip((OUTER_NWS["top_m"] - elev) / (OUTER_NWS["top_m"] - lowest), 0, 1)
+    outer = np.where((LON > lo_) & (LON < hi_) & (LAT < -14), ramp * OUTER_NWS["max_m"], 0.0)
+    outer = ndimage.gaussian_filter(outer, 2.0)
+
+    thick = (background + wedge + deltas + carbonate + outer) * (1 - scour) - erosion
     thick = ndimage.gaussian_filter(thick, 0.8)
     thick = np.where(domain, thick, np.nan)
     v = thick[domain]
     print(f"thickness: min {v.min():.1f}  p5 {np.percentile(v,5):.1f}  median {np.median(v):.2f}  p95 {np.percentile(v,95):.1f}  max {v.max():.1f}")
+    # mass-balance check: mean modelled thickness in regions with known river sediment budgets
+    cell_m2 = (kmx * 1000) * (kmy * 1000) * np.cos(np.radians(LAT)) / math.cos(math.radians((north + south) / 2))
+    for name, (x0, x1, y0, y1) in {"Gulf of Carpentaria": (136.0, 141.5, -17.6, -10.8),
+                                    "Timor Sea / Bonaparte / Sahul": (123.0, 132.0, -15.5, -9.0),
+                                    "Java Sea": (105.5, 116.0, -7.0, -3.0)}.items():
+        m = domain & (LON >= x0) & (LON <= x1) & (LAT >= y0) & (LAT <= y1)
+        vol = np.nansum(np.where(m, thick, 0) * cell_m2)
+        print(f"  {name}: area {m.sum() and (cell_m2[m].sum()/1e6):,.0f} km2, mean {np.nanmean(thick[m]):.2f} m, volume {vol/1e9:,.0f} km3")
     print(f"net erosion cells: {(v < -0.5).mean()*100:.1f}%   relict (|t|<0.5): {(np.abs(v) < 0.5).mean()*100:.1f}%")
 
     # ---- write grids

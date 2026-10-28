@@ -60,20 +60,20 @@
       "properties": {
         "name": "Madura Strait Homo erectus",
         "image": "img/erectus-skull.png",
-        "image_alt": "Homo erectus skull (pixel icon)",
+        "image_alt": "Homo erectus skull, front view (pixel icon)",
         "image_caption": "Homo erectus",
         "region": "Madura Strait, north of the port of Surabaya, East Java, Indonesia",
         "what": "Two Homo erectus skull fragments and 36 vertebrate species dredged from a drowned Solo River valley in 2014–2015: the first hominin fossils from the seabed of submerged Sundaland. Cut-marked turtle bones and broken bovid bones point to hunting.",
         "age": "About 140,000 years (penultimate glacial lowstand)",
         "depth": "Seabed about 20 m below sea level, dredged down to 32 m",
         "reference": "Berghuis, H.W.K., Veldkamp, A., Adhityatama, S. et al. 2025. A late Middle Pleistocene lowstand valley of the Solo River on the Madura Strait seabed, geology and age of the first hominin locality of submerged Sundaland. Quaternary Environments and Humans 3: 100042. doi:10.1016/j.qeh.2024.100042",
-        "position": "Approximate (about ±5 km): the paper places the dredging 'directly north of the port of Surabaya' but gives no coordinates"
+        "position": "Approximate (about ±1 km): centre of the sand extraction area as mapped in Berghuis et al. 2025 (Fig. 1C), between Tanjung Perak port and the Suramadu Bridge"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          112.69,
-          -7.14
+          112.747,
+          -7.186
         ]
       }
     }

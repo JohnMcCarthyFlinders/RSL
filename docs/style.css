@@ -93,6 +93,7 @@ select { background: var(--field); color: var(--ink); border: 2px solid var(--fi
 .faunal-label { font: 700 12px/1.1 "Atkinson Hyperlegible", sans-serif; color: #fff; padding: 2px 6px; border-radius: 4px;
   background: rgba(10, 16, 40, .78); border-left: 3px solid currentColor; white-space: nowrap; pointer-events: none; }
 .faunal-label b { color: #fff; font-weight: 700; }
+.sw.rivers { height: 4px; border-radius: 2px; background: #4fb3ff; box-shadow: 0 0 0 1px #000; }
 .sw.site { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--navy); margin: 0 4px; }
 
 .timeline { left: 50%; bottom: 22px; transform: translateX(-50%); width: min(760px, calc(100% - 32px)); }

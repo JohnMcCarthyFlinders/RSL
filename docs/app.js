@@ -184,6 +184,46 @@
   const addRoutes = () => addLineOverlay("routes", "routes.geojson", { dash: [2.5, 1.5],
     rows: (p) => row("what", p.what) + row("source", p.reference) + row("position", "Traced from the published map (about ±10 km)") });
 
+  // Palaeo-rivers and lakes (scripts/arcgis_palaeo_rivers.py). Each river piece carries its seabed
+  // elevation (z) and each lake its spill level, so they show only where that ground is dry at the age shown.
+  let riverSL = 0;
+  function setRiverLevel(sl) {
+    riverSL = sl;
+    if (map.getLayer("rivers")) map.setFilter("rivers", [">", ["get", "z"], sl]);
+    if (map.getLayer("lakes")) {
+      map.setFilter("lakes", [">", ["get", "spill_m"], sl]);
+      map.setFilter("lakes-line", [">", ["get", "spill_m"], sl]);
+    }
+  }
+  async function addRivers() {
+    const get = (f) => fetch(DATA + "overlays/" + f, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    const [rivers, lakes] = await Promise.all([get("rivers.geojson"), get("lakes.geojson")]);
+    if (!rivers && !lakes) { $("lyr-rivers").closest("label").hidden = true; return; }
+    const vis = $("lyr-rivers").checked ? "visible" : "none";
+    if (lakes) {
+      map.addSource("lakes", { type: "geojson", data: lakes });
+      map.addLayer({ id: "lakes", type: "fill", source: "lakes", layout: { visibility: vis },
+        paint: { "fill-color": "#3d8fd6", "fill-opacity": 0.6 } }, "shore-casing");
+      map.addLayer({ id: "lakes-line", type: "line", source: "lakes", layout: { visibility: vis },
+        paint: { "line-color": "#9fd3ff", "line-width": 1 } }, "shore-casing");
+      map.on("click", "lakes", (e) => {
+        if (measure.on) return;
+        const p = e.features[0].properties;
+        new maplibregl.Popup({ offset: 6 }).setLngLat(e.lngLat)
+          .setHTML(`<h3>Palaeolake</h3><table>${row("area", `${Number(p.area_km2).toLocaleString()} km²`)}${row("floor", `${p.floor_m} m`)}${row("overflow sill", `${p.spill_m} m`)}${row("note", "Closed depression in GEBCO; a lake while the sea stood below its sill, if the climate kept it full")}</table>`)
+          .addTo(map);
+      });
+    }
+    if (rivers) {
+      map.addSource("rivers", { type: "geojson", data: rivers });
+      map.addLayer({ id: "rivers", type: "line", source: "rivers", layout: { visibility: vis, "line-cap": "round", "line-join": "round" },
+        paint: { "line-color": "#4fb3ff",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 3, ["interpolate", ["linear"], ["get", "order"], 1, 0.6, 6, 2.2],
+            8, ["interpolate", ["linear"], ["get", "order"], 1, 1.2, 6, 5]] } }, "shore-casing");
+    }
+    setRiverLevel(riverSL);
+  }
+
   // Sites are DOM markers (no glyph server needed for labels)
   const siteMarkers = [];
   async function addSites() {
@@ -246,6 +286,7 @@
     if (t !== token) return;            // a newer age was requested meanwhile
     map.getSource("shore").setData(shore);
     map.getSource("land").setData(land);
+    setRiverLevel(a.sea_level_m);
     prefetch(i);
   }
 
@@ -355,6 +396,9 @@
     toggle("lyr-land", ["land-fill"]);
     toggle("lyr-shore", ["shore-casing", "shore-line"]);
     toggle("lyr-lgm", ["lgm-line"]);
+    $("lyr-rivers").addEventListener("change", (e) => {
+      for (const l of ["rivers", "lakes", "lakes-line"]) if (map.getLayer(l)) map.setLayoutProperty(l, "visibility", e.target.checked ? "visible" : "none");
+    });
     for (const id of ["faunal", "routes"]) $("lyr-" + id).addEventListener("change", (e) => {
       const on = e.target.checked;
       for (const l of [id + "-casing", id + "-line"]) if (map.getLayer(l)) map.setLayoutProperty(l, "visibility", on ? "visible" : "none");
@@ -414,6 +458,7 @@
     load(lowest.shoreline).then((d) => map.getSource("lgm").setData(d));
     $("lgm-label").textContent = `Lowest shoreline (${fmtAge(lowest.age_ka)} ka, ${fmtSL(lowest.sea_level_m)} m)`;
 
+    addRivers();
     addFaunal();
     addRoutes();
     await addSites();

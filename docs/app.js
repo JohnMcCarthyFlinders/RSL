@@ -178,7 +178,7 @@
     map.on("mouseenter", id + "-line", () => { if (!measure.on) map.getCanvas().style.cursor = "pointer"; });
     map.on("mouseleave", id + "-line", () => { if (!measure.on) map.getCanvas().style.cursor = ""; });
   }
-  const row = (k, v) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`;
+  const row = (k, v) => `<tr><td>${esc(k)}</td><td>${linkDoi(esc(v))}</td></tr>`;
   const addFaunal = () => addLineOverlay("faunal", "faunal_lines.geojson", {
     rows: (p) => row("proposed", `${p.author}, ${p.year}`) + row("what", p.what) + row("position", "Schematic") });
   const addRoutes = () => addLineOverlay("routes", "routes.geojson", { dash: [2.5, 1.5],
@@ -237,17 +237,21 @@
       if (!f.geometry || f.geometry.type !== "Point") continue;
       const p = f.properties || {};
       const el = document.createElement("button");
-      el.className = "site";
+      el.className = p.label_side === "left" ? "site left" : "site";
       el.innerHTML = `<span class="pin"></span><span class="name">${esc(p.name || "")}</span>`;
-      const rows = Object.entries(p).filter(([k]) => !["name", "image", "image_alt", "image_caption"].includes(k))
-        .map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("");
+      const rows = Object.entries(p).filter(([k]) => !["name", "image", "image_alt", "image_caption", "label_side"].includes(k))
+        .map(([k, v]) => `<tr><td>${esc(k)}</td><td>${linkDoi(esc(v))}</td></tr>`).join("");
       const pic = p.image ? `<figure class="site-pic"><img src="${esc(p.image)}" alt="${esc(p.image_alt || "")}" width="64" height="64">`
         + (p.image_caption ? `<figcaption>${esc(p.image_caption)}</figcaption>` : "") + "</figure>" : "";
       const popup = new maplibregl.Popup({ offset: 12 })
         .setHTML(`<div class="site-head">${pic}<h3>${esc(p.name || "Site")}</h3></div><table>${rows}</table>`);
-      siteMarkers.push(new maplibregl.Marker({ element: el, anchor: "left", offset: [-7, 0] })
+      siteMarkers.push(new maplibregl.Marker({ element: el, ...(p.label_side === "left" ? { anchor: "right", offset: [7, 0] } : { anchor: "left", offset: [-7, 0] }) })
         .setLngLat(f.geometry.coordinates).setPopup(popup).addTo(map));
     }
+  }
+
+  function linkDoi(s) {
+    return s.replace(/doi:(10\.[^\s·]+[^\s·.,;])/g, (m, d) => `<a href="https://doi.org/${d}" target="_blank" rel="noopener">${m}</a>`);
   }
 
   function esc(s) {

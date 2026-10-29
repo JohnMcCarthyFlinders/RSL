@@ -133,6 +133,7 @@ dialog p { margin: 0 0 10px; }
 /* site markers */
 .site { display: flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; cursor: pointer;
   color: #fff; font: 700 12px var(--head); letter-spacing: .04em; text-shadow: 0 0 3px #000, 1px 1px 0 #000; }
+.site.left { flex-direction: row-reverse; }
 .site .pin { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--navy); flex: none; box-shadow: 0 0 0 2px var(--gold); }
 
 /* map chrome */
@@ -140,6 +141,8 @@ dialog p { margin: 0 0 10px; }
 .maplibregl-popup-tip { border-top-color: var(--gold) !important; border-bottom-color: var(--gold) !important; }
 .maplibregl-popup-content h3 { margin: 0 0 4px; font: 700 14px var(--head); color: var(--gold); text-transform: uppercase; letter-spacing: .06em; }
 .maplibregl-popup-content table { font-size: 12px; }
+.maplibregl-popup-content a { color: var(--gold); }
+.maplibregl-popup-content a:focus { outline: none; }
 .maplibregl-popup-content td:first-child { color: var(--muted); padding-right: 8px; }
 .site-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; padding-right: 14px; }
 .site-head h3 { margin: 0; }

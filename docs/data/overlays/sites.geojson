@@ -76,6 +76,97 @@
           -7.186
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Madjedbebe",
+        "region": "Mirarr country, western Arnhem Land, Northern Territory (about 50 km inland, within the former Jabiluka lease)",
+        "what": "Sandstone rock shelter with the oldest dated human occupation in Australia: dense stone artefact bands with grindstones, ground ochre, reflective additives and ground-edge hatchet heads",
+        "age": "Occupation from about 65,000 years ago (OSL dating of the lowest dense artefact band)",
+        "reference": "Clarkson, C., Jacobs, Z., Marwick, B. et al. 2017. Human occupation of northern Australia by 65,000 years ago. Nature 547: 306–310. doi:10.1038/nature22968",
+        "position": "Approximate (about ±2 km): 12°30′S 132°53′E, published to the nearest arc-minute"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.883,
+          -12.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liang Bua",
+        "region": "Near Ruteng, Manggarai, western Flores, Indonesia",
+        "what": "Limestone cave where the type specimen of Homo floresiensis (the 'hobbit', LB1) was found in 2003",
+        "age": "H. floresiensis skeletal remains about 100,000–60,000 years old; stone tools attributed to it about 190,000–50,000 years old",
+        "reference": "Brown, P., Sutikna, T., Morwood, M.J. et al. 2004. A new small-bodied hominin from the Late Pleistocene of Flores, Indonesia. Nature 431: 1055–1061. doi:10.1038/nature02999 · Sutikna, T., Tocheri, M.W., Morwood, M.J. et al. 2016. Revised stratigraphy and chronology for Homo floresiensis at Liang Bua in Indonesia. Nature 532: 366–369. doi:10.1038/nature17179",
+        "position": "Cave entrance (about ±200 m)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4434,
+          -8.5309
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Leang Karampuang",
+        "region": "Samangki village, Simbang, Maros karst, South Sulawesi, Indonesia",
+        "what": "Painted scene of human-like figures interacting with a Sulawesi warty pig: the oldest known narrative (story-telling) cave art",
+        "age": "At least 51,200 years (LA-U-series on overlying calcite)",
+        "reference": "Oktaviana, A.A., Joannes-Boyau, R., Hakim, B. et al. 2024. Narrative cave art in Indonesia by 51,200 years ago. Nature 631: 814–818. doi:10.1038/s41586-024-07541-7",
+        "position": "Approximate (about ±5 km): Samangki village; the paper does not publish cave coordinates",
+        "label_side": "left"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.69,
+          -5.01
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liang Metanduno",
+        "region": "Muna Island, Southeast Sulawesi, Indonesia",
+        "what": "Hand stencil with deliberately narrowed fingers: the oldest dated rock art known anywhere",
+        "age": "At least 67,800 years (LA-U-series on overlying calcite, 67.8 ± 3.8 ka)",
+        "reference": "Oktaviana, A.A., Joannes-Boyau, R., Hakim, B. et al. 2026. Rock art from at least 67,800 years ago in Sulawesi. Nature. doi:10.1038/s41586-025-09968-y",
+        "position": "Approximate (about ±1 km): 4°53′55″S 122°39′34″E as given in public site listings"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.6595,
+          -4.8985
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jerimalai",
+        "region": "Near Tutuala, Lautém, eastern tip of Timor-Leste (75 m above sea level, under 1 km from the coast)",
+        "what": "Limestone shelter with the earliest evidence of pelagic (deep-water) fishing, including tuna, and one of the oldest known fish hooks, made from shell",
+        "age": "Pelagic fish from about 42,000 years ago; shell fish hook about 23,000–16,000 years old",
+        "reference": "O'Connor, S., Ono, R. & Clarkson, C. 2011. Pelagic fishing at 42,000 years before the present and the maritime skills of modern humans. Science 334: 1117–1121. doi:10.1126/science.1207703",
+        "position": "Approximate (about ±500 m): 8°23′38″S 127°16′06″E"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.2683,
+          -8.3939
+        ]
+      }
     }
   ]
 }

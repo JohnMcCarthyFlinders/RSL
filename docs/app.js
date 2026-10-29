@@ -1,4 +1,4 @@
-/* Sahul Shelf Shorelines viewer.
+/* Sunda to Sahul Viewer.
  * Reads data/manifest.json (written by arcgis_contours.py) and loads one
  * shoreline + land GeoJSON per age on demand. Optional point overlays come
  * from data/overlays/sites.geojson.
@@ -38,7 +38,7 @@
     style: { version: 8, sources: {}, layers: [] },
     center: [133, -11],
     zoom: 4,
-    attributionControl: { compact: true },
+    attributionControl: { compact: true, customAttribution: "Map: J. McCarthy, Flinders University" },
     hash: false,
   });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");

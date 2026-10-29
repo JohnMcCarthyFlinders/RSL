@@ -14,11 +14,11 @@ Model, per grid cell inside the domain (sea today, land at the lowest sea level)
 Seabed depth is not available here, so it is bracketed from the shoreline stack:
 a cell that is land at sea level s1 and sea at s2 lies between s1 and s2.
 
-Outputs (data/sediment/ and docs/data/overlays/)
+Outputs (data/sediment/)
   sediment_thickness.tif/.tfw/.prj   Float32 grid for ArcGIS (m; negative = erosion; -9999 nodata)
   sediment_thickness.asc/.prj        same as an ESRI ASCII grid
-  docs/data/overlays/sediment.png    classified RGBA image for the web viewer
-  docs/data/overlays/sediment.json   image bounds, classes and colours
+  data/sediment/web/sediment.png     classified RGBA image (viewer layer withdrawn)
+  data/sediment/web/sediment.json    image bounds, classes and colours
 """
 import csv
 import datetime
@@ -200,7 +200,8 @@ def main():
     lat_rows = np.degrees(2 * np.arctan(np.exp(ym)) - np.pi / 2)
     src = np.clip(np.floor((north - lat_rows) / RES).astype(int), 0, h - 1)
     rgba = rgba[src]
-    ov = DATA / "overlays"
+    ov = OUT / "web"   # viewer layer withdrawn 2026-10-29; its map code is in git history (commit 166999c)
+    ov.mkdir(parents=True, exist_ok=True)
     Image.fromarray(rgba, "RGBA").save(ov / "sediment.png", optimize=True)
     meta = {
         "bounds": [west, south, east, north],

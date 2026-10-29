@@ -134,6 +134,8 @@ dialog p { margin: 0 0 10px; }
 .site { display: flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; cursor: pointer;
   color: #fff; font: 700 12px var(--head); letter-spacing: .04em; text-shadow: 0 0 3px #000, 1px 1px 0 #000; }
 .site.left { flex-direction: row-reverse; }
+.site.nolabel .name { visibility: hidden; }
+.site.nolabel:hover .name, .site.nolabel:focus-visible .name { visibility: visible; position: relative; z-index: 1; }
 .site .pin { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--navy); flex: none; box-shadow: 0 0 0 2px var(--gold); }
 
 /* map chrome */

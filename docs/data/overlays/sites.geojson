@@ -174,8 +174,10 @@
         "name": "Goulburn Islands crossing",
         "type": "Oral tradition",
         "region": "Between North and South Goulburn Islands, western Arnhem Land, NT",
-        "what": "Recorded tradition of a former land crossing from North to South Goulburn Island, now drowned",
-        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (p. 27)",
+        "what": "Stories of a narrow strip of land that once joined South Goulburn (Warruwi) and North Goulburn (Weyra) Islands. In one, a fisherman cut down a big paperbark tree that fell into the water and flooded the connection; others credit supernatural beings",
+        "depth": "Crossing on foot needs sea level 17–20 m lower than present",
+        "age": "8890–9680 cal BP (latest time the story could have been valid)",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (p. 27, Tables 1–2)",
         "position": "Approximate (about ±5 km): the channel between the islands",
         "label_side": "left"
       },
@@ -193,7 +195,9 @@
         "name": "Drowned islands off North Goulburn",
         "type": "Oral tradition",
         "region": "About 20 km east of North Goulburn Island, NT",
-        "what": "Tradition of submerged islands, now under the sea, inhabited by ancestral spirits",
+        "what": "The submerged islands of Wulurunbu and Lingardji, known to the Goulburn Islands people, identified as a shoal about 20 km east of North Goulburn Island (after Cooke & Armstrong 1998)",
+        "depth": "Shoal now 9–11 m deep",
+        "age": "Not dated separately by Nunn & Reid",
         "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (p. 27)",
         "position": "Schematic (about ±10 km): '20 km east of North Goulburn Island'"
       },
@@ -211,8 +215,10 @@
         "name": "Elcho Island crossing",
         "type": "Oral tradition",
         "region": "Between mainland Arnhem Land and Elcho Island (Galiwin'ku), NT",
-        "what": "Tradition of a former land crossing from the mainland to Elcho Island",
-        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (pp. 25–29)",
+        "what": "Yolŋu traditions of how Elcho became an island: Djankawu tripped and thrust his walking stick into the sand, 'causing the sea to rush in', and the Ancestresses 'made a long sand-bar' that lasted only until they had crossed",
+        "depth": "5 m lower allows a crossing; 10 m lower gives a complete land connection",
+        "age": "7450–9140 cal BP (latest time the story could have been valid)",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (p. 27, Tables 1–2)",
         "position": "Approximate (about ±10 km): south end of Elcho Island"
       },
       "geometry": {
@@ -314,6 +320,87 @@
         "coordinates": [
           139.55,
           -17.74
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wellesley Islands",
+        "type": "Oral tradition",
+        "region": "Southern Gulf of Carpentaria, Queensland (Mornington Island group)",
+        "what": "Accounts of a time when the Wellesley Islands were part of a mainland peninsula, until the 'seagull woman' Garnguur dragged her raft back and forth across its neck and it was submerged, forming the islands",
+        "depth": "About 5 m lower joins the islands to the mainland; 10 m lower gives substantial connections",
+        "age": "7450–9140 cal BP (latest time the story could have been valid)",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (p. 26, Tables 1–2)",
+        "position": "Island group centre (about ±20 km)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.388,
+          -16.533
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cape Don (Aragaládi)",
+        "type": "Oral tradition",
+        "region": "Cape Don, western tip of the Cobourg Peninsula, NT",
+        "what": "Tradition of Aragaládi, a submerged island the ancestors came from. A sacred rock was knocked, 'rain fell for a long time there in the middle of the sea … then that place went underwater', and only those with canoes reached the mainland at Cape Don",
+        "depth": "9–15 m",
+        "age": "7930–9520 cal BP (latest time the story could have been valid)",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (pp. 27–28, Tables 1–2)",
+        "position": "Pin at Cape Don; the location of Aragaládi itself is unknown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.765,
+          -11.308
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tiwi crossing (Vernon Islands)",
+        "type": "Oral tradition",
+        "region": "Clarence Strait, between the mainland and Melville Island, NT",
+        "what": "Tiwi story of Mudangkala, an old blind woman who crawled across the land with water following her, forming Clarence Strait and Apsley Strait. Read as a memory of crossing from the mainland via the Vernon Islands before the sea rose",
+        "depth": "About 12 m lower for a crossing without watercraft; 20 m lower for an easy one",
+        "age": "8210–9680 cal BP (latest time the story could have been valid)",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (pp. 28–29, Tables 1–2)",
+        "position": "Vernon Islands (about ±5 km)",
+        "label_side": "left"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.033,
+          -12.083
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Brue Reef (Juljinabur)",
+        "type": "Oral tradition",
+        "region": "Off the Dampier Peninsula, Kimberley, WA (Bardi and Jawi Country)",
+        "what": "Bardi and Jawi stories of Juljinabur, now a reef awash at high tide, as an inhabited island that later sank. Nunn & Reid estimate it could have supported 10–100 people",
+        "depth": "4 m lower possible; 10 m lower more convincing",
+        "age": "7250–9140 cal BP (latest time the story could have been valid)",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (pp. 29–30, Tables 1–2)",
+        "position": "Approximate (about ±5 km): Museums Victoria georeference for Brue Reef"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.03,
+          -15.94
         ]
       }
     }

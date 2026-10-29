@@ -248,6 +248,22 @@
       siteMarkers.push(new maplibregl.Marker({ element: el, ...(p.label_side === "left" ? { anchor: "right", offset: [7, 0] } : { anchor: "left", offset: [-7, 0] }) })
         .setLngLat(f.geometry.coordinates).setPopup(popup).addTo(map));
     }
+    declutterSites();
+    map.on("moveend", declutterSites);
+  }
+
+  // Hide a site's label (pin stays; label shows on hover) when it would overlap
+  // a pin or an earlier site's label. File order sets priority.
+  function declutterSites() {
+    const shown = siteMarkers.map((m) => m.getElement()).filter((el) => el.style.display !== "none");
+    for (const el of shown) el.classList.remove("nolabel");
+    const taken = shown.map((el) => el.querySelector(".pin").getBoundingClientRect());
+    const hit = (a, b) => a.left < b.right + 2 && b.left < a.right + 2 && a.top < b.bottom && b.top < a.bottom;
+    for (const el of shown) {
+      const r = el.querySelector(".name").getBoundingClientRect();
+      if (taken.some((t) => hit(r, t))) el.classList.add("nolabel");
+      else taken.push(r);
+    }
   }
 
   function linkDoi(s) {
@@ -411,6 +427,7 @@
     });
     $("lyr-sites").addEventListener("change", (e) => {
       for (const m of siteMarkers) m.getElement().style.display = e.target.checked ? "" : "none";
+      declutterSites();
     });
 
     window.addEventListener("resize", drawChart);

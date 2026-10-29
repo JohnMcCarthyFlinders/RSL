@@ -167,6 +167,155 @@
           -8.3939
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Goulburn Islands crossing",
+        "type": "Oral tradition",
+        "region": "Between North and South Goulburn Islands, western Arnhem Land, NT",
+        "what": "Recorded tradition of a former land crossing from North to South Goulburn Island, now drowned",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (p. 27)",
+        "position": "Approximate (about ±5 km): the channel between the islands",
+        "label_side": "left"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.4,
+          -11.59
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Drowned islands off North Goulburn",
+        "type": "Oral tradition",
+        "region": "About 20 km east of North Goulburn Island, NT",
+        "what": "Tradition of submerged islands, now under the sea, inhabited by ancestral spirits",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (p. 27)",
+        "position": "Schematic (about ±10 km): '20 km east of North Goulburn Island'"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.6,
+          -11.53
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Elcho Island crossing",
+        "type": "Oral tradition",
+        "region": "Between mainland Arnhem Land and Elcho Island (Galiwin'ku), NT",
+        "what": "Tradition of a former land crossing from the mainland to Elcho Island",
+        "reference": "Nunn, P.D. & Reid, N.J. 2016. Aboriginal memories of inundation of the Australian coast dating from more than 7000 years ago. Australian Geographer 47(1): 11–47. doi:10.1080/00049182.2015.1077539 (pp. 25–29)",
+        "position": "Approximate (about ±10 km): south end of Elcho Island"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.55,
+          -12.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Entrance Island crossing",
+        "type": "Oral tradition",
+        "region": "Entrance Island, mouth of the Liverpool River at Maningrida, NT",
+        "what": "Tradition of a submerged crossing at Entrance Island / Maningrida (Cooke & Armstrong 2014, as summarised by McCarthy et al. 2022)",
+        "reference": "Cooke, P. & Armstrong, G. 2014, cited in McCarthy, J., Wiseman, C., Woo, K. et al. 2022. Beneath the Top End: a regional assessment of submerged archaeological potential in the Northern Territory, Australia. Australian Archaeology 88(1): 65–83. doi:10.1080/03122417.2021.1960248",
+        "position": "Approximate (about ±3 km)",
+        "label_side": "left"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.23,
+          -11.99
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Marchinbar submerged rockshelter",
+        "type": "Oral tradition and survey",
+        "region": "North end of Marchinbar Island, Wessel Islands, NT (Golpa Country)",
+        "what": "Golpa Traditional Owners identified a submerged rockshelter during 2018 fieldwork with Daryl Wesley. A seabed depression, possibly a cave or rockshelter, seen in a Wessel Islands marine survey matched a place known from oral tradition",
+        "reference": "McCarthy, J., Wiseman, C., Woo, K. et al. 2022. Beneath the Top End: a regional assessment of submerged archaeological potential in the Northern Territory, Australia. Australian Archaeology 88(1): 65–83. doi:10.1080/03122417.2021.1960248",
+        "position": "Deliberately approximate (about ±10 km): north end of Marchinbar Island; no exact location is published"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          136.7,
+          -11.05
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Palaeo-Lake Carpentaria",
+        "type": "Submerged landscape",
+        "region": "Gulf of Carpentaria",
+        "what": "Large freshwater lake on the exposed Sahul shelf at lower sea levels, reaching about 190,000 km² at 14 ka. Rising seas breached the Arafura Sill about 11.7 ka, turning it brackish and then marine",
+        "age": "About 70–12.2 ka as a lake; marine from about 11.7 ka",
+        "reference": "McCarthy, J., Wiseman, C., Woo, K. et al. 2022. Beneath the Top End: a regional assessment of submerged archaeological potential in the Northern Territory, Australia. Australian Archaeology 88(1): 65–83. doi:10.1080/03122417.2021.1960248 (after Reeves et al. 2008; Yokoyama et al. 2001; Sloss et al. 2018)",
+        "position": "Lake centre (schematic)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.0,
+          -14.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vanderlin Island",
+        "type": "Archaeological site",
+        "region": "Sir Edward Pellew Group, southwest Gulf of Carpentaria, NT (Yanyuwa Country)",
+        "what": "Oldest dated occupation in the Gulf islands, soon after the rising sea reached the area",
+        "age": "About 8000 BP",
+        "reference": "McCarthy, J., Wiseman, C., Woo, K. et al. 2022. Beneath the Top End: a regional assessment of submerged archaeological potential in the Northern Territory, Australia. Australian Archaeology 88(1): 65–83. doi:10.1080/03122417.2021.1960248 (after Sim & Wallis 2008; Brockwell et al. 2009)",
+        "position": "Island centre (about ±10 km)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.03,
+          -15.73
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pama-Nyungan origin",
+        "type": "Language origin",
+        "region": "South of the Gulf of Carpentaria, near Burketown, Queensland",
+        "what": "Modelled homeland of the Pama-Nyungan language family, which later spread across most of Australia",
+        "age": "About 6 ka (5.7 ka in Bouckaert et al. 2018)",
+        "reference": "Bouckaert, R.R., Bowern, C. & Atkinson, Q.D. 2018. The origin and expansion of Pama–Nyungan languages across Australia. Nature Ecology & Evolution 2: 741–749. doi:10.1038/s41559-018-0489-3 · McCarthy, J., Wiseman, C., Woo, K. et al. 2022. Beneath the Top End: a regional assessment of submerged archaeological potential in the Northern Territory, Australia. Australian Archaeology 88(1): 65–83. doi:10.1080/03122417.2021.1960248",
+        "position": "Schematic: Burketown, standing for the modelled origin area"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.55,
+          -17.74
+        ]
+      }
     }
   ]
 }

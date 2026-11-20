@@ -82,7 +82,7 @@ footer{max-width:1100px;margin:30px auto 40px;padding:0 16px;color:var(--muted);
 <header>
   <h1>Trilateration exercise: three control points, three measured points</h1>
   <p class="sub">Slate data from the dive team (divers Rani, Emily and Jaen, names as read from the slate). Each diver measured one range from each of control points A, B and C to a point on the object: high, mid and low. Frame: A is the origin, +X runs toward B, +Y toward the C side, +Z is up from a flat seabed. All distances are in metres.</p>
-  <div class="callout"><b>Read this first:</b> the slate gives B–C and C–A without a metres digit (“40 cm”, “44 cm”) and also shows “3.4 M” beside B–C. I used <b>B–C = 2.40 m and C–A = 2.44 m</b>. The ranges rule out 3.40 m (see Table 5). Even so, <b>Emily’s mid point cannot be placed exactly</b>: her A and C ranges fall 34 cm short of spanning A–C, so it is drawn as a low-confidence best fit (Tables 3 and 4).</div>
+  <div class="callout"><b>Read this first:</b> the slate gives B–C and C–A without a metres digit (“40 cm”, “44 cm”) and also shows “3.4 M” beside B–C. I used <b>B–C = 2.40 m and C–A = 2.44 m</b>. The ranges rule out 3.40 m (see Table 5). Even so, <b>Emily’s mid point cannot be placed exactly</b>: her A and C ranges fall 34 cm short of spanning A–C, so it is drawn as a low-confidence best fit (Tables 3 and 4). The chair is a schematic model placed on the two points that closed exactly (High = top rail, Low = front of the seat). Those points put its legs about 0.74 m above the seabed, so check the control-point levels or the readings.</div>
 </header>
 
 <main>
@@ -96,6 +96,7 @@ footer{max-width:1100px;margin:30px auto 40px;padding:0 16px;color:var(--muted);
         <li><svg viewBox="0 0 30 20"><circle cx="15" cy="10" r="7" fill="#0072B2" stroke="#111"/></svg>High point (Rani), sphere</li>
         <li><svg viewBox="0 0 30 20"><polygon points="15,2 25,10 15,18 5,10" fill="#D55E00" fill-opacity=".55" stroke="#111" stroke-dasharray="3 2"/></svg>Mid point (Emily), diamond. Low confidence</li>
         <li><svg viewBox="0 0 30 20"><rect x="8" y="4" width="14" height="13" fill="#009E73" stroke="#111"/></svg>Low point (Jaen), cube</li>
+        <li><svg viewBox="0 0 30 20"><path d="M9 3 L7 12 L22 12 L22 3 M7 12 L6 18 M22 12 L23 18 M7 7 H22" fill="none" stroke="#7a4a32" stroke-width="2"/></svg>Chair (schematic), fitted to the High and Low points</li>
         <li><svg viewBox="0 0 30 20"><line x1="2" y1="10" x2="28" y2="10" stroke="#0072B2" stroke-width="2"/></svg>Range line (colour = point). Dashed = ranges do not close</li>
         <li><svg viewBox="0 0 30 20"><line x1="15" y1="2" x2="15" y2="14" stroke="#444" stroke-width="2" stroke-dasharray="2 2"/><ellipse cx="15" cy="16" rx="7" ry="3" fill="none" stroke="#0072B2" stroke-width="2"/></svg>Drop line to seabed and footprint ring</li>
         <li><svg viewBox="0 0 30 20"><ellipse cx="15" cy="10" rx="12" ry="7" fill="#0072B2" fill-opacity=".2" stroke="#0072B2" stroke-opacity=".6"/></svg>Error ellipsoid, ±2σ (Table 4)</li>
@@ -110,6 +111,7 @@ footer{max-width:1100px;margin:30px auto 40px;padding:0 16px;color:var(--muted);
         <label><input type="checkbox" id="tRlab" checked> Range labels</label>
         <label><input type="checkbox" id="tDrop" checked> Drop lines</label>
         <label><input type="checkbox" id="tErr" checked> Error ellipsoids</label>
+        <label><input type="checkbox" id="tChair" checked> Chair</label>
         <label><input type="checkbox" id="tAxes" checked> Axes &amp; scale</label>
       </div>
       <div class="grp"><button id="bReset">Reset view</button><button id="bPlan">Plan view</button><button id="bSide">Side view</button></div>
@@ -150,6 +152,7 @@ footer{max-width:1100px;margin:30px auto 40px;padding:0 16px;color:var(--muted);
     <li><b>Trilateration:</b> with distances <i>dA, dB, dC</i> to a point, <code>x = (dA² − dB² + AB²) / 2AB</code>, <code>y = (dA² − dC² + Cx² + Cy² − 2·x·Cx) / 2Cy</code>, <code>z = +√(dA² − x² − y²)</code>. The positive root is taken because every measured point is above the control points.</li>
     <li><b>When ranges do not close</b> (z² &lt; 0, or the spheres miss each other): a bounded least-squares fit with the control triangle held fixed and Z ≥ 0. That is the case for the mid point.</li>
     <li><b>Readings:</b> “1m 7cm” is 1.07 m, “2.6 M” is 2.60 m, and “1M 30CM” (written under the table) confirms C–low = 1.30 m. Ranges are taken as straight-line tape distances.</li>
+    <li><b>Chair:</b> modelled loosely on the photographed rusty steel armchair with a ladder back. The top rail sits on the High point and the middle of the seat’s front edge on the Low point. Seat height (0.30 m) and width (0.40 m) are assumed; the seat depth, lean and facing direction come from the two points. It is a visual aid, not a survey result.</li>
     <li><b>Not modelled:</b> tape sag, slack, offsets from the tape-end to the object surface, and which part of the object each diver actually touched. The three measured points are independent; the object is not assumed to be vertical.</li>
   </ul>
 </section>
@@ -201,7 +204,7 @@ document.getElementById('tSpin').checked = controls.autoRotate;
 const V = (x, y, z) => new THREE.Vector3(x, z, -y);
 const UPV = new THREE.Vector3(0, 1, 0);
 
-const cat = { range: [], rlab: [], drop: [], err: [], axes: [] };
+const cat = { range: [], rlab: [], drop: [], err: [], axes: [], chair: [] };
 const add = (c, o) => { scene.add(o); if (c) cat[c].push(o); return o; };
 
 function label(html, cls, color) {
@@ -365,6 +368,50 @@ Object.keys(META).forEach(k => {
   });
 });
 
+
+/* ---------- chair (schematic), fitted to the two good points ---------- */
+{
+  const H = V(...D.points.top), L = V(...D.points.bot);
+  const dh = Math.hypot(H.x - L.x, H.z - L.z), dz = H.y - L.y;
+  const fw = new THREE.Vector3(L.x - H.x, 0, L.z - H.z).normalize();   // chair faces from the High point toward the Low point
+  const HS = 0.30, DS = Math.min(0.36, dh - 0.03), LEAN = dh - DS, UW = 0.20;
+  const g = new THREE.Group();
+  g.position.copy(L);
+  g.rotation.y = Math.atan2(fw.x, fw.z);
+  const mat = new THREE.MeshStandardMaterial({ color: 0x7a4a32, roughness: 0.85, transparent: true, opacity: 0.92 });
+  const rod = (a, b, r = 0.008) => {
+    const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b);
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, A.distanceTo(B), 8), mat);
+    m.position.copy(A).add(B).multiplyScalar(0.5);
+    m.quaternion.setFromUnitVectors(UPV, B.clone().sub(A).normalize());
+    g.add(m);
+  };
+  // local frame: x = chair right, y = up, z = forward; origin = middle of the seat's front edge (the Low point)
+  rod([-UW, 0, 0], [UW, 0, 0]); rod([-UW, 0, -DS], [UW, 0, -DS]);           // seat front and rear rails
+  for (let i = -2; i <= 2; i++) rod([i * UW / 2, 0, 0], [i * UW / 2, 0, -DS], 0.006);   // seat slats
+  [-1, 1].forEach(s => {
+    rod([s * UW, 0, 0], [s * UW, -HS, 0.03]);                                 // front legs
+    rod([s * UW, 0, -DS], [s * UW, -HS, -DS - 0.05]);                         // rear legs
+    rod([s * UW, 0, -DS], [s * UW, dz, -DS - LEAN]);                          // back uprights
+    const arm = new THREE.CatmullRomCurve3([[s * UW, 0, -0.01], [s * UW, 0.1, -0.03], [s * UW, 0.15, -0.11], [s * UW, 0.15, -0.22], [s * UW, 0.1, -DS + 0.02]].map(p => new THREE.Vector3(...p)));
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(arm, 20, 0.009, 6), mat));    // arm loop
+    foot(s * UW, 0.03); foot(s * UW, -DS - 0.05);
+  });
+  [0.35, 0.68, 1.0].forEach(f => rod([-UW, dz * f, -DS - LEAN * f], [UW, dz * f, -DS - LEAN * f]));   // ladder back, top rail passes through the High point
+  function foot(x, z) {
+    const fl = new THREE.Vector3(x, -HS, z);
+    const a = g.localToWorld(fl.clone());
+    const w = a.clone(); w.y = 0.004;
+    add('chair', dashedTube(w, a, 0.003, 0x7a4a32, 0.03, 0.03));
+  }
+  g.updateMatrixWorld(true);
+  add('chair', g);
+  const base = L.y - HS;
+  const cl = label(`CHAIR (schematic)<small>faces away from the High point</small><small>legs end ${base.toFixed(2)} m above seabed</small>`, 'pt warn', '#7a4a32');
+  cl.position.copy(g.localToWorld(new THREE.Vector3(-UW - 0.42, -HS * 0.2, -DS / 2)));
+  add('chair', cl);
+}
+
 /* ---------- info panel (tap a marker) ---------- */
 const info = document.getElementById('info'), infoBody = document.getElementById('infoBody');
 document.getElementById('infoClose').onclick = () => info.style.display = 'none';
@@ -401,7 +448,7 @@ function setView(posSlate) {
   controls.update();
 }
 const views = {
-  reset: () => setView([-2.3, -4.0, 3.0]),
+  reset: () => setView([-1.9, -3.4, 2.5]),
   plan:  () => setView([1.2, 0.8, 8.2]),
   side:  () => setView([1.2, -7.0, 1.1])
 };
@@ -419,6 +466,7 @@ bind('tRlab', v => vis(cat.rlab, v));
 bind('tDrop', v => vis(cat.drop, v));
 bind('tErr', v => vis(cat.err, v));
 bind('tAxes', v => vis(cat.axes, v));
+bind('tChair', v => vis(cat.chair, v));
 
 /* ---------- legend collapses on small screens ---------- */
 if (window.innerWidth < 700) document.getElementById('legend').removeAttribute('open');

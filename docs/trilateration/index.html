@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trilateration exercise: 3 control points, 3 measured points (interactive 3D)</title>
+<meta name="description" content="Dive-team trilateration exercise: positions of a high, mid and low point calculated from three seabed control points, shown in an interactive 3D scene with an error table.">
+<style>
+:root{--ink:#1b1b1f;--muted:#5b5b66;--line:#d6d6dc;--bg:#fff;--hi:#0072B2;--mid:#D55E00;--lo:#009E73;--warn:#b3261e;--okc:#14693d}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header,main{max-width:1100px;margin:0 auto;padding:0 16px}
+header{padding-top:18px}
+h1{font-size:1.55rem;line-height:1.25;margin:0 0 4px}
+h2{font-size:1.2rem;margin:34px 0 6px;padding-top:6px;border-top:2px solid var(--ink)}
+h3{font-size:1rem;margin:22px 0 4px}
+p{margin:6px 0}
+.sub{color:var(--muted);margin:0 0 12px}
+.callout{border:1px solid var(--line);border-left:5px solid var(--mid);background:#fafafa;padding:8px 12px;margin:12px 0;border-radius:4px}
+.callout b{color:var(--ink)}
+
+/* 3D stage */
+#stage{position:relative;height:min(76vh,720px);min-height:430px;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;touch-action:none}
+#stage canvas{display:block;width:100%;height:100%;cursor:grab}
+#stage canvas:active{cursor:grabbing}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.labels *{pointer-events:none}
+.lbl{font:600 12px/1.25 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#111;background:rgba(255,255,255,.93);border:1.5px solid var(--c,#333);border-radius:4px;padding:1px 5px;white-space:nowrap;text-align:center}
+.lbl small{display:block;font-weight:500;font-size:10.5px;color:#444}
+.lbl.ctrl{font-size:14px;border-color:#111;background:#111;color:#fff}
+.lbl.ctrl small{color:#ddd}
+.lbl.pt{font-size:13px}
+.lbl.rng{font-size:11px;font-weight:600;padding:0 4px}
+.lbl.edge{font-size:11.5px;border-color:#111;border-style:solid}
+.lbl.drop{font-size:10.5px;font-weight:600;border-style:dotted;color:#333}
+.lbl.tick{font-size:10px;font-weight:500;border:none;background:none;color:#6a6a72;padding:0}
+.lbl.axis{font-size:11px;border-color:#444}
+.lbl.warn{border-color:var(--warn);color:var(--warn)}
+#legend{position:absolute;left:8px;top:8px;max-width:272px;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:6px;font-size:12.5px;z-index:3}
+#legend summary{cursor:pointer;padding:6px 10px;font-weight:700;list-style:none}
+#legend summary::-webkit-details-marker{display:none}
+#legend summary::before{content:"▸ "}
+#legend[open] summary::before{content:"▾ "}
+#legend ul{list-style:none;margin:0;padding:0 10px 8px}
+#legend li{display:flex;align-items:center;gap:8px;margin:3px 0}
+#legend svg{flex:0 0 30px;width:30px;height:20px}
+#toolbar{position:absolute;left:8px;right:8px;bottom:8px;display:flex;flex-wrap:wrap;gap:6px;z-index:3}
+#toolbar .grp{display:flex;flex-wrap:wrap;gap:4px 10px;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font-size:12.5px}
+#toolbar label{display:flex;align-items:center;gap:4px;cursor:pointer;white-space:nowrap}
+#toolbar button{font:inherit;font-size:12.5px;padding:3px 9px;border:1px solid #888;background:#fff;border-radius:5px;cursor:pointer}
+#toolbar button:hover{background:#f0f0f3}
+:focus-visible{outline:3px solid #1a73e8;outline-offset:2px}
+#info{position:absolute;right:8px;top:8px;width:min(290px,calc(100% - 16px));background:rgba(255,255,255,.97);border:1px solid var(--line);border-top:4px solid var(--c,#333);border-radius:6px;padding:8px 10px;font-size:13px;display:none;z-index:4}
+#info button{position:absolute;right:4px;top:2px;border:none;background:none;font-size:18px;cursor:pointer}
+#info dl{margin:6px 0 0;display:grid;grid-template-columns:auto 1fr;gap:1px 10px}
+#info dt{color:var(--muted)}#info dd{margin:0;font-variant-numeric:tabular-nums}
+.hint{font-size:12.5px;color:var(--muted);margin:6px 2px 0}
+#nogl{display:none;padding:30px;text-align:center}
+
+/* tables */
+.tw{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+caption{text-align:left;font-weight:700;padding:4px 0}.sr{position:absolute;left:-9999px}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:right;vertical-align:top}
+th{background:#f1f1f4;font-weight:700}
+td:first-child,th:first-child,td.l,th.l{text-align:left}
+tr.flag td{background:#fff3f1}
+tr.ctl td{background:#f7f7f9}
+.st{font-weight:700;white-space:nowrap}
+.st.ok{color:var(--okc)}.st.bad{color:var(--warn)}.st.mid{color:#8a5a00}
+.sw{display:inline-block;width:11px;height:11px;margin-right:6px;vertical-align:-1px;border:1px solid #333}
+.note{font-size:13.5px;color:#333}
+code{background:#f1f1f4;padding:1px 4px;border-radius:3px;font-size:.92em}
+footer{max-width:1100px;margin:30px auto 40px;padding:0 16px;color:var(--muted);font-size:13px}
+@media (max-width:700px){h1{font-size:1.25rem}#legend{max-width:calc(100% - 16px)}}
+@media print{#stage{height:480px}#toolbar,#legend summary::before{display:none}}
+</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
+</head>
+<body>
+<header>
+  <h1>Trilateration exercise: three control points, three measured points</h1>
+  <p class="sub">Slate data from the dive team (divers Rani, Emily and Jaen, names as read from the slate). Each diver measured one range from each of control points A, B and C to a point on the object: high, mid and low. Frame: A is the origin, +X runs toward B, +Y toward the C side, +Z is up from a flat seabed. All distances are in metres.</p>
+  <div class="callout"><b>Read this first:</b> the slate gives B–C and C–A without a metres digit (“40 cm”, “44 cm”) and also shows “3.4 M” beside B–C. I used <b>B–C = 2.40 m and C–A = 2.44 m</b>. The ranges rule out 3.40 m (see Table 5). Even so, <b>Emily’s mid point cannot be placed exactly</b>: her A and C ranges fall 34 cm short of spanning A–C, so it is drawn as a low-confidence best fit (Tables 3 and 4).</div>
+</header>
+
+<main>
+<section aria-label="Interactive 3D scene">
+  <div id="stage">
+    <details id="legend" open>
+      <summary>Symbology</summary>
+      <ul>
+        <li><svg viewBox="0 0 30 20"><polygon points="15,2 24,17 6,17" fill="#111"/></svg>Control point (A, B, C) on the seabed</li>
+        <li><svg viewBox="0 0 30 20"><line x1="2" y1="10" x2="28" y2="10" stroke="#111" stroke-width="3"/></svg>Control triangle side (measured)</li>
+        <li><svg viewBox="0 0 30 20"><circle cx="15" cy="10" r="7" fill="#0072B2" stroke="#111"/></svg>High point (Rani), sphere</li>
+        <li><svg viewBox="0 0 30 20"><polygon points="15,2 25,10 15,18 5,10" fill="#D55E00" fill-opacity=".55" stroke="#111" stroke-dasharray="3 2"/></svg>Mid point (Emily), diamond. Low confidence</li>
+        <li><svg viewBox="0 0 30 20"><rect x="8" y="4" width="14" height="13" fill="#009E73" stroke="#111"/></svg>Low point (Jaen), cube</li>
+        <li><svg viewBox="0 0 30 20"><line x1="2" y1="10" x2="28" y2="10" stroke="#0072B2" stroke-width="2"/></svg>Range line (colour = point). Dashed = ranges do not close</li>
+        <li><svg viewBox="0 0 30 20"><line x1="15" y1="2" x2="15" y2="14" stroke="#444" stroke-width="2" stroke-dasharray="2 2"/><ellipse cx="15" cy="16" rx="7" ry="3" fill="none" stroke="#0072B2" stroke-width="2"/></svg>Drop line to seabed and footprint ring</li>
+        <li><svg viewBox="0 0 30 20"><ellipse cx="15" cy="10" rx="12" ry="7" fill="#0072B2" fill-opacity=".2" stroke="#0072B2" stroke-opacity=".6"/></svg>Error ellipsoid, ±2σ (Table 4)</li>
+        <li><svg viewBox="0 0 30 20"><rect x="1" y="1" width="28" height="18" fill="#e6e6ea" stroke="#9a9aa2"/><line x1="15" y1="1" x2="15" y2="19" stroke="#9a9aa2" stroke-width="1.5"/><line x1="1" y1="10" x2="29" y2="10" stroke="#9a9aa2" stroke-width="1.5"/></svg>Seabed grid: bold 0.5 m, fine 0.1 m</li>
+      </ul>
+    </details>
+    <div id="info" role="status"><button aria-label="Close details" id="infoClose">×</button><div id="infoBody"></div></div>
+    <div id="toolbar">
+      <div class="grp">
+        <label><input type="checkbox" id="tSpin" checked> Spin</label>
+        <label><input type="checkbox" id="tRange" checked> Range lines</label>
+        <label><input type="checkbox" id="tRlab" checked> Range labels</label>
+        <label><input type="checkbox" id="tDrop" checked> Drop lines</label>
+        <label><input type="checkbox" id="tErr" checked> Error ellipsoids</label>
+        <label><input type="checkbox" id="tAxes" checked> Axes &amp; scale</label>
+      </div>
+      <div class="grp"><button id="bReset">Reset view</button><button id="bPlan">Plan view</button><button id="bSide">Side view</button></div>
+    </div>
+    <div id="nogl">This page needs WebGL to draw the 3D scene. The tables below still hold all the results.</div>
+  </div>
+  <p class="hint">Drag to orbit, scroll or pinch to zoom, right-drag or two-finger drag to pan. Tap a coloured marker for its coordinates and errors. The scene turns slowly by itself; untick Spin to stop it.</p>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <h3>Table 1. Computed positions</h3>
+  <p class="note">Relative to control point A, with +X toward B. The slate’s compass box is empty, so there is no true-north bearing.</p>
+  <div class="tw"><table><caption class="sr">Computed coordinates in metres</caption><thead><tr><th class="l">Point</th><th class="l">Diver / role</th><th>X (m)</th><th>Y (m)</th><th>Z up (m)</th><th class="l">Confidence</th></tr></thead><tbody><tr class="ctl"><td>Control A</td><td class="l">Seabed control point</td><td>0.00</td><td>0.00</td><td>0.00</td><td class="l">Origin</td></tr><tr class="ctl"><td>Control B</td><td class="l">Seabed control point</td><td>2.34</td><td>0.00</td><td>0.00</td><td class="l">On +X axis, 2.34 m from A</td></tr><tr class="ctl"><td>Control C</td><td class="l">Seabed control point</td><td>1.21</td><td>2.12</td><td>0.00</td><td class="l">Placed from B–C 2.40 m and C–A 2.44 m (†)</td></tr><tr><td><span class="sw" style="background:#0072B2"></span>High point</td><td class="l">Rani</td><td>1.92</td><td>2.00</td><td>1.29</td><td class="l"><span class="st ok">Ranges close exactly</span></td></tr><tr class=flag><td><span class="sw" style="background:#D55E00"></span>Mid point</td><td class="l">Emily</td><td>0.60</td><td>1.09</td><td>0.00</td><td class="l"><span class="st bad">Best fit only, treat as ±0.2 m</span> (Z is the seabed lower bound)</td></tr><tr><td><span class="sw" style="background:#009E73"></span>Low point</td><td class="l">Jaen</td><td>1.79</td><td>1.58</td><td>1.04</td><td class="l"><span class="st ok">Ranges close exactly</span></td></tr></tbody></table><p class="note">† B–C and C–A are interpreted readings; see Tables 2 and 5.</p></div>
+
+  <h2>Error tables</h2>
+  <h3>Table 2. Slate transcription and what was used</h3>
+  <div class="tw"><table><thead><tr><th class="l">Slate entry</th><th class="l">As written</th><th>Used (m)</th><th class="l">Comment</th></tr></thead><tbody><tr><td>Control A to B</td><td class="l">“2.34 M” (an earlier value is struck out)</td><td>2.34</td><td class="l">Clear.</td></tr><tr><td>Control B to C</td><td class="l">“40 cm” and, beside it, “3.4 M” (underlined)</td><td>2.40</td><td class="l">Metres digit missing on “40 cm”. 3.40 m is ruled out: Emily’s B and C ranges add to only 3.09 m, so B and C cannot be 3.40 m apart.</td></tr><tr><td>Control C to A</td><td class="l">“44 cm”</td><td>2.44</td><td class="l">Metres digit missing; 2.44 m gives a near-equilateral triangle (2.34 / 2.40 / 2.44). 0.44 m is impossible (B–C and A–B differ by more than that).</td></tr><tr><td>Rani: A, B, C to high</td><td class="l">“3m 6cm”, “2m 42cm”, “1m 48cm”</td><td>3.06, 2.42, 1.48</td><td class="l">One digit of the B reading is overwritten; read as 42.</td></tr><tr><td>Emily: A, B, C to mid</td><td class="l">“1M 7CM”, “2M 6CM”, “1M 3CM”</td><td>1.07, 2.06, 1.03</td><td class="l">A and C ranges are too short to reach each other (Table 3).</td></tr><tr><td>Jaen: A, B, C to low</td><td class="l">“2.6 M”, “1m 97cm”, “1.3 M” (repeated as “1M 30CM”)</td><td>2.60, 1.97, 1.30</td><td class="l">A–low is only to the nearest 10 cm.</td></tr><tr><td>Compass; sketch</td><td class="l">Compass box empty; sketch of a chair</td><td>n/a</td><td class="l">No bearing, so the frame is local: +X = A→B.</td></tr></tbody></table></div>
+
+  <h3>Table 3. Range residuals (computed − observed)</h3>
+  <p class="note">Each point’s three ranges were turned into a position, then the distances back to A, B and C were recomputed. A residual of 0.0 means the three spheres meet exactly at that position. A residual of several centimetres means the ranges cannot all be true at once and the position is a least-squares best fit with Z held at or above the seabed. Control sides are the datum, so they carry no residual.</p>
+  <div class="tw"><table><thead><tr><th class="l">Diver</th><th class="l">Range</th><th class="l">Slate</th><th>Observed (m)</th><th>Computed (m)</th><th>Residual (cm)</th><th class="l">Status</th></tr></thead><tbody><tr class="ctl"><td class="l">Control</td><td class="l">AB</td><td class="l">2.34M</td><td>2.34</td><td>2.34</td><td>0.0</td><td class="l"><span class="st mid">Datum (held fixed)</span></td></tr><tr class="ctl"><td class="l">Control</td><td class="l">BC</td><td class="l">40 cm †</td><td>2.40</td><td>2.40</td><td>0.0</td><td class="l"><span class="st mid">Datum (held fixed)</span></td></tr><tr class="ctl"><td class="l">Control</td><td class="l">CA</td><td class="l">44 cm †</td><td>2.44</td><td>2.44</td><td>0.0</td><td class="l"><span class="st mid">Datum (held fixed)</span></td></tr><tr><td class="l"><span class="sw" style="background:#0072B2"></span>Rani (high)</td><td class="l">A → high</td><td class="l">3m 6cm</td><td>3.06</td><td>3.060</td><td>0.0</td><td class="l"><span class="st ok">Closes</span></td></tr><tr><td class="l"><span class="sw" style="background:#0072B2"></span>Rani (high)</td><td class="l">B → high</td><td class="l">2m 42cm</td><td>2.42</td><td>2.420</td><td>0.0</td><td class="l"><span class="st ok">Closes</span></td></tr><tr><td class="l"><span class="sw" style="background:#0072B2"></span>Rani (high)</td><td class="l">C → high</td><td class="l">1m 48cm</td><td>1.48</td><td>1.480</td><td>0.0</td><td class="l"><span class="st ok">Closes</span></td></tr><tr class=flag><td class="l"><span class="sw" style="background:#D55E00"></span>Emily (mid)</td><td class="l">A → mid</td><td class="l">1M 7CM</td><td>1.07</td><td>1.240</td><td>+17.0</td><td class="l"><span class="st bad">Does not close</span></td></tr><tr><td class="l"><span class="sw" style="background:#D55E00"></span>Emily (mid)</td><td class="l">B → mid</td><td class="l">2M 6CM</td><td>2.06</td><td>2.054</td><td>−0.6</td><td class="l"><span class="st ok">Closes</span></td></tr><tr class=flag><td class="l"><span class="sw" style="background:#D55E00"></span>Emily (mid)</td><td class="l">C → mid</td><td class="l">1M 3CM</td><td>1.03</td><td>1.200</td><td>+17.0</td><td class="l"><span class="st bad">Does not close</span></td></tr><tr><td class="l"><span class="sw" style="background:#009E73"></span>Jaen (low)</td><td class="l">A → low</td><td class="l">2.6 M</td><td>2.60</td><td>2.600</td><td>0.0</td><td class="l"><span class="st ok">Closes</span></td></tr><tr><td class="l"><span class="sw" style="background:#009E73"></span>Jaen (low)</td><td class="l">B → low</td><td class="l">1m 97cm</td><td>1.97</td><td>1.970</td><td>0.0</td><td class="l"><span class="st ok">Closes</span></td></tr><tr><td class="l"><span class="sw" style="background:#009E73"></span>Jaen (low)</td><td class="l">C → low</td><td class="l">1.3 M</td><td>1.30</td><td>1.300</td><td>0.0</td><td class="l"><span class="st ok">Closes</span></td></tr></tbody></table></div>
+  <p class="note"><b>Why the mid point fails:</b> A–mid plus C–mid is 2.10 m, but A–C is 2.44 m, so even a point sitting on the line A–C could not satisfy both ranges. They are 34 cm short in total. The best fit sits on the seabed (Z = 0) and needs both ranges about 17 cm longer. A mis-read or mis-recorded tape value is the likely cause. Treat the mid point as uncertain by about ±0.2 m, and ask Emily to recheck her A and C readings.</p>
+
+  <h3>Table 4. Position uncertainty from random reading error</h3>
+  <p class="note">Monte Carlo, 1500 runs. Every reading was perturbed at random with a standard deviation of 2 cm (5 cm for Jaen’s A–low “2.6 M”, which was recorded to the nearest 10 cm), including the three control sides. Each run re-solved the triangle and all three points. The ellipsoids in the scene are drawn at ±2σ.</p>
+  <div class="tw"><table><thead><tr><th class="l">Point</th><th>σX (cm)</th><th>σY (cm)</th><th>σZ (cm)</th><th>σ 3D (cm)</th><th class="l">Note</th></tr></thead><tbody><tr><td class="l"><span class="sw" style="background:#0072B2"></span>High (Rani)</td><td>3.4</td><td>2.5</td><td>3.2</td><td>5.3</td><td class="l">Random error only</td></tr><tr class=flag><td class="l"><span class="sw" style="background:#D55E00"></span>Mid (Emily)</td><td>2.2</td><td>1.8</td><td>0.0 *</td><td>2.8</td><td class="l">* Z clamped to the seabed in 100% of runs, so σZ understates the real uncertainty. The systematic misfit (17 cm) dominates.</td></tr><tr><td class="l"><span class="sw" style="background:#009E73"></span>Low (Jaen)</td><td>5.8</td><td>3.5</td><td>3.3</td><td>7.5</td><td class="l">Random error only</td></tr></tbody></table></div>
+
+  <h3>Table 5. Does the control reading matter? Alternative readings of B–C and C–A</h3>
+  <p class="note">For each possible reading the three points were re-solved. The figure is the worst leftover residual for each diver’s point, in cm (0.0 means that point closes exactly).</p>
+  <div class="tw"><table><thead><tr><th class="l">Reading of the control sides (A–B = 2.34 m)</th><th>Rani high (cm)</th><th>Emily mid (cm)</th><th>Jaen low (cm)</th><th class="l">Verdict</th></tr></thead><tbody><tr><td class="l">B–C 3.40 m (as written), C–A 2.44 m</td><td>15.5</td><td>30.1</td><td>22.2</td><td class="l"><span class="st bad">Rejected: no point closes (15 to 30 cm out).</span></td></tr><tr><td class="l">B–C 3.40 m (as written), C–A 1.44 m</td><td>63.3</td><td>17.2</td><td>57.0</td><td class="l"><span class="st bad">Rejected: up to 63 cm out.</span></td></tr><tr class=ctl><td class="l">B–C 2.40 m, C–A 2.44 m</td><td>0.0</td><td>17.0</td><td>0.0</td><td class="l"><span class="st ok"><b>Adopted.</b> Only Emily’s mid point fails (17 cm).</span></td></tr><tr><td class="l">B–C 2.40 m, C–A 1.44 m</td><td>16.1</td><td>0.0</td><td>8.4</td><td class="l"><span class="st mid">Possible, but two points fail (16 cm and 8 cm).</span></td></tr><tr><td class="l">B–C 1.40 m, C–A 1.44 m</td><td>15.4</td><td>0.0</td><td>0.0</td><td class="l"><span class="st mid">Possible alternative. Only Rani’s high point fails (15 cm). Check with the divers.</span></td></tr></tbody></table><p class="note">The adopted reading matches the way the slate was filled in (metres omitted on “40 cm” and “44 cm”, with a 2.34 m side already recorded) and fits the ranges best of the readings that also keep the control triangle plausible. The 1.40 / 1.44 reading fits about as well, so the divers should confirm the tape lengths.</p></div>
+</section>
+
+<section>
+  <h2>Method and assumptions</h2>
+  <ul>
+    <li><b>Datum:</b> A = (0, 0, 0), B = (AB, 0, 0), C on the +Y side. Control points are level and on a flat seabed (Z = 0). The mirror image (C on −Y) is equally valid, since nothing on the slate fixes handedness.</li>
+    <li><b>Trilateration:</b> with distances <i>dA, dB, dC</i> to a point, <code>x = (dA² − dB² + AB²) / 2AB</code>, <code>y = (dA² − dC² + Cx² + Cy² − 2·x·Cx) / 2Cy</code>, <code>z = +√(dA² − x² − y²)</code>. The positive root is taken because every measured point is above the control points.</li>
+    <li><b>When ranges do not close</b> (z² &lt; 0, or the spheres miss each other): a bounded least-squares fit with the control triangle held fixed and Z ≥ 0. That is the case for the mid point.</li>
+    <li><b>Readings:</b> “1m 7cm” is 1.07 m, “2.6 M” is 2.60 m, and “1M 30CM” (written under the table) confirms C–low = 1.30 m. Ranges are taken as straight-line tape distances.</li>
+    <li><b>Not modelled:</b> tape sag, slack, offsets from the tape-end to the object surface, and which part of the object each diver actually touched. The three measured points are independent; the object is not assumed to be vertical.</li>
+  </ul>
+</section>
+</main>
+<footer>Built with three.js (MIT licence, bundled in <code>vendor/</code>). Solved and drawn from a photo of the dive slate; check the transcription against the original before relying on the numbers.</footer>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from './vendor/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from './vendor/CSS2DRenderer.js';
+
+const D = {"control": [[0.0, 0.0, 0.0], [2.34, 0.0, 0.0], [1.2114, 2.1181, 0.0]], "side": {"AB": 2.34, "BC": 2.4, "CA": 2.44}, "points": {"top": [1.9194, 2.001, 1.2944], "mid": [0.5972, 1.0871, 0.0], "bot": [1.7852, 1.5813, 1.0357]}, "mc": {"top": {"sx": 0.03405, "sy": 0.02548, "sz": 0.0324, "s3": 0.05347, "clamped_pct": 0.0}, "mid": {"sx": 0.02164, "sy": 0.01803, "sz": 0.0, "s3": 0.02817, "clamped_pct": 100.0}, "bot": {"sx": 0.05838, "sy": 0.03486, "sz": 0.03254, "s3": 0.07538, "clamped_pct": 0.0}}, "resid": {"top": {"obs": [3.06, 2.42, 1.48], "comp": [3.06, 2.42, 1.48], "res_cm": [0.0, 0.0, -0.0]}, "mid": {"obs": [1.07, 2.06, 1.03], "comp": [1.2403, 2.0541, 1.2001], "res_cm": [17.03, -0.59, 17.01]}, "bot": {"obs": [2.6, 1.97, 1.3], "comp": [2.6, 1.97, 1.3], "res_cm": [-0.0, 0.0, 0.0]}}};
+const stage = document.getElementById('stage');
+
+/* ---------- renderer ---------- */
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+} catch (e) {
+  document.getElementById('nogl').style.display = 'block';
+  throw e;
+}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.setClearColor(0xffffff, 1);
+stage.prepend(renderer.domElement);
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.domElement.className = 'labels';
+stage.insertBefore(labelRenderer.domElement, renderer.domElement.nextSibling);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+scene.add(new THREE.AmbientLight(0xffffff, 1.1));
+const sun = new THREE.DirectionalLight(0xffffff, 1.1);
+sun.position.set(-2, 6, 3);
+scene.add(sun);
+
+const camera = new THREE.PerspectiveCamera(40, 1, 0.05, 60);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.maxPolarAngle = Math.PI / 2 - 0.015;   // never go below the seabed
+controls.minDistance = 0.8;
+controls.maxDistance = 14;
+controls.autoRotate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+controls.autoRotateSpeed = 0.7;                 // about 85 s per revolution
+document.getElementById('tSpin').checked = controls.autoRotate;
+
+/* slate frame (x, y, z-up) -> three.js (x, y-up, -z) */
+const V = (x, y, z) => new THREE.Vector3(x, z, -y);
+const UPV = new THREE.Vector3(0, 1, 0);
+
+const cat = { range: [], rlab: [], drop: [], err: [], axes: [] };
+const add = (c, o) => { scene.add(o); if (c) cat[c].push(o); return o; };
+
+function label(html, cls, color) {
+  const el = document.createElement('div');
+  el.className = 'lbl ' + cls;
+  el.innerHTML = html;
+  if (color) el.style.setProperty('--c', color);
+  return new CSS2DObject(el);
+}
+function tube(a, b, r, color, opacity = 1) {
+  const len = a.distanceTo(b);
+  const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, 8, 1),
+    new THREE.MeshBasicMaterial({ color, transparent: opacity < 1, opacity }));
+  m.position.copy(a).add(b).multiplyScalar(0.5);
+  m.quaternion.setFromUnitVectors(UPV, b.clone().sub(a).normalize());
+  return m;
+}
+function dashedTube(a, b, r, color, dash = 0.05, gap = 0.04) {
+  const g = new THREE.Group();
+  const dir = b.clone().sub(a), len = dir.length(); dir.normalize();
+  for (let s = 0; s < len; s += dash + gap) {
+    const e = Math.min(s + dash, len);
+    g.add(tube(a.clone().addScaledVector(dir, s), a.clone().addScaledVector(dir, e), r, color));
+  }
+  return g;
+}
+
+/* ---------- seabed floor and grid ---------- */
+const LO = -2, HI = 4, STEP = 0.1;
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(HI - LO, HI - LO),
+  new THREE.MeshBasicMaterial({ color: 0xe4e4e8 }));
+floor.rotation.x = -Math.PI / 2;
+floor.position.set((LO + HI) / 2, -0.003, -(LO + HI) / 2);
+scene.add(floor);
+{
+  const minor = [], major = [];
+  const n = Math.round((HI - LO) / STEP);
+  for (let i = 0; i <= n; i++) {
+    const v = LO + i * STEP, arr = (i % 5 === 0) ? major : minor;
+    arr.push(v, 0, -LO, v, 0, -HI);     // line of constant x
+    arr.push(LO, 0, -v, HI, 0, -v);     // line of constant y
+  }
+  const mk = (arr, col) => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(arr, 3));
+    return new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: col }));
+  };
+  scene.add(mk(minor, 0xc4c4cb));
+  scene.add(mk(major, 0x84848e));
+}
+
+/* tick labels (metres) along the near edges */
+for (let k = LO; k <= HI; k++) {
+  const a = label(k + ' m', 'tick'); a.position.copy(V(k, LO - 0.13, 0)); add('axes', a);
+  if (k !== LO) { const b = label(k + ' m', 'tick'); b.position.copy(V(LO - 0.17, k, 0)); add('axes', b); }
+}
+/* orientation gizmo */
+{
+  const o = V(-1.45, -1.0, 0);
+  [[new THREE.Vector3(1, 0, 0), '+X (A→B)'], [new THREE.Vector3(0, 0, -1), '+Y'], [new THREE.Vector3(0, 1, 0), '+Z (up)']].forEach(([d, t]) => {
+    const ar = new THREE.ArrowHelper(d, o.clone().setY(0.004), 0.75, 0x222222, 0.14, 0.07);
+    add('axes', ar);
+    const l = label(t, 'axis'); l.position.copy(o).addScaledVector(d, 0.92); l.position.y += 0.004; add('axes', l);
+  });
+}
+
+/* ---------- control points ---------- */
+const C = D.control.map(c => V(c[0], c[1], c[2]));
+const CN = ['A', 'B', 'C'];
+C.forEach((p, i) => {
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(0.065, 0.15, 4),
+    new THREE.MeshStandardMaterial({ color: 0x111111, roughness: .5 }));
+  cone.position.copy(p).setY(0.075); cone.rotation.y = Math.PI / 4;
+  scene.add(cone);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.085, 0.105, 32),
+    new THREE.MeshBasicMaterial({ color: 0x111111, side: THREE.DoubleSide }));
+  ring.rotation.x = -Math.PI / 2; ring.position.copy(p).setY(0.004); scene.add(ring);
+  const l = label(`${CN[i]}<small>(${D.control[i].map(v => v.toFixed(2)).join(', ')})</small>`, 'ctrl');
+  l.position.copy(p).setY(0.3);
+  scene.add(l);
+});
+{
+  const tri = new THREE.BufferGeometry().setFromPoints([C[0], C[1], C[2]].map(p => p.clone().setY(0.001)));
+  tri.setIndex([0, 1, 2]);
+  scene.add(new THREE.Mesh(tri, new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.07, side: THREE.DoubleSide })));
+  const sides = [[0, 1, 'AB', D.side.AB, ''], [1, 2, 'BC', D.side.BC, ' †'], [2, 0, 'CA', D.side.CA, ' †']];
+  sides.forEach(([i, j, nm, d, dag]) => {
+    const a = C[i].clone().setY(0.006), b = C[j].clone().setY(0.006);
+    scene.add(tube(a, b, 0.008, 0x111111));
+    const l = label(`${nm} ${d.toFixed(2)} m${dag}`, 'edge');
+    l.position.copy(a).add(b).multiplyScalar(0.5).setY(0.07);
+    scene.add(l);
+  });
+}
+
+/* ---------- measured points ---------- */
+const META = {
+  top: { name: 'HIGH', diver: 'Rani',  color: '#0072B2' },
+  mid: { name: 'MID',  diver: 'Emily', color: '#D55E00', flag: true },
+  bot: { name: 'LOW',  diver: 'Jaen',  color: '#009E73' }
+};
+const pickables = [];
+const markers = {};
+Object.keys(META).forEach(k => {
+  const m = META[k], p = D.points[k], mc = D.mc[k], col = new THREE.Color(m.color);
+  const pos = V(p[0], p[1], p[2]);
+  let geo;
+  if (k === 'top') geo = new THREE.SphereGeometry(0.058, 28, 20);
+  else if (k === 'mid') geo = new THREE.OctahedronGeometry(0.08);
+  else geo = new THREE.BoxGeometry(0.095, 0.095, 0.095);
+  const mat = new THREE.MeshStandardMaterial({ color: col, roughness: .45, transparent: !!m.flag, opacity: m.flag ? 0.6 : 1 });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.copy(pos);
+  if (m.flag) mesh.position.y += 0.04;     // lift slightly so it is not buried in the floor
+  scene.add(mesh);
+  if (k !== 'top') {
+    const ed = new THREE.LineSegments(new THREE.EdgesGeometry(geo),
+      new THREE.LineBasicMaterial({ color: 0x111111 }));
+    ed.position.copy(mesh.position); scene.add(ed);
+  }
+  const pick = new THREE.Mesh(new THREE.SphereGeometry(0.16), new THREE.MeshBasicMaterial({ visible: false }));
+  pick.position.copy(mesh.position); pick.userData.key = k; scene.add(pick); pickables.push(pick);
+  markers[k] = mesh;
+
+  // name label
+  const l = label(`${m.name} · ${m.diver}<small>(${p.map(v => v.toFixed(2)).join(', ')})</small>${m.flag ? '<small style="color:#b3261e;font-weight:700">low confidence</small>' : ''}`, 'pt' + (m.flag ? ' warn' : ''), m.color);
+  const off = { top: [0, 0.3, 0], mid: [0, 0.42, 0], bot: [0.42, 0.06, 0] }[k];
+  l.position.copy(pos).add(new THREE.Vector3(...off));
+  scene.add(l);
+
+  // drop line + footprint ring + height label
+  const foot = V(p[0], p[1], 0);
+  if (p[2] > 0.02) add('drop', dashedTube(foot.clone().setY(0.003), pos, 0.0035, 0x444444, 0.035, 0.03));
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.04, 0.062, 32), new THREE.MeshBasicMaterial({ color: col, side: THREE.DoubleSide }));
+  ring.rotation.x = -Math.PI / 2; ring.position.copy(foot).setY(0.005); add('drop', ring);
+  const hl = label(`z = ${p[2].toFixed(2)} m${p[2] < 0.005 ? ' (seabed bound)' : ''}`, 'drop', m.color);
+  hl.position.copy(foot).setY(Math.max(p[2] / 2, 0.06)).x += 0.0;
+  hl.position.x += 0.16;
+  add('drop', hl);
+
+  // error ellipsoid (±2σ, axis aligned)
+  const sx = Math.max(2 * mc.sx, 0.004), sy = Math.max(2 * mc.sy, 0.004), sz = Math.max(2 * mc.sz, 0.004);
+  const eg = new THREE.SphereGeometry(1, 28, 18);
+  const e1 = new THREE.Mesh(eg, new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.16, depthWrite: false }));
+  const e2 = new THREE.Mesh(eg, new THREE.MeshBasicMaterial({ color: col, wireframe: true, transparent: true, opacity: 0.22, depthWrite: false }));
+  [e1, e2].forEach(e => { e.position.copy(pos); e.scale.set(sx, sz, sy); add('err', e); });
+
+  // range lines from A, B, C
+  const rr = D.resid[k];
+  C.forEach((c, i) => {
+    const a = c.clone().setY(0.012);
+    const line = m.flag ? dashedTube(a, pos, 0.0035, m.color, 0.05, 0.035) : tube(a, pos, 0.0035, m.color);
+    add('range', line);
+    const t = (k === 'top') ? 0.5 : (k === 'mid' ? 0.45 : 0.55);
+    const q = a.clone().lerp(pos, t);
+    const txt = m.flag
+      ? `${CN[i]}: obs ${rr.obs[i].toFixed(2)}<br>fit ${rr.comp[i].toFixed(2)} m`
+      : `${CN[i]}: ${rr.obs[i].toFixed(2)} m`;
+    const rl = label(txt, 'rng' + (m.flag ? ' warn' : ''), m.color);
+    rl.position.copy(q); add('rlab', rl);
+  });
+});
+
+/* ---------- info panel (tap a marker) ---------- */
+const info = document.getElementById('info'), infoBody = document.getElementById('infoBody');
+document.getElementById('infoClose').onclick = () => info.style.display = 'none';
+function showInfo(k) {
+  const m = META[k], p = D.points[k], mc = D.mc[k], r = D.resid[k];
+  info.style.setProperty('--c', m.color);
+  const cm = v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1) + ' cm';
+  infoBody.innerHTML = `<b>${m.name} point · ${m.diver}</b>${m.flag ? ' <span style="color:#b3261e;font-weight:700">(ranges do not close)</span>' : ''}
+  <dl><dt>X</dt><dd>${p[0].toFixed(3)} m</dd><dt>Y</dt><dd>${p[1].toFixed(3)} m</dd><dt>Z (height)</dt><dd>${p[2].toFixed(3)} m${p[2] < 0.005 ? ' (bound)' : ''}</dd>
+  <dt>σ X / Y / Z</dt><dd>${(mc.sx * 100).toFixed(1)} / ${(mc.sy * 100).toFixed(1)} / ${(mc.sz * 100).toFixed(1)} cm</dd>
+  <dt>Residual A / B / C</dt><dd>${r.res_cm.map(cm).join(' · ')}</dd></dl>`;
+  info.style.display = 'block';
+}
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+let downAt = null;
+renderer.domElement.addEventListener('pointerdown', e => { downAt = [e.clientX, e.clientY]; });
+renderer.domElement.addEventListener('pointerup', e => {
+  if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
+  const r = renderer.domElement.getBoundingClientRect();
+  ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  const hit = ray.intersectObjects(pickables)[0];
+  if (hit) showInfo(hit.object.userData.key);
+});
+
+/* ---------- views ---------- */
+const TARGET = V(1.2, 0.95, 0.45);
+function setView(posSlate) {
+  const asp = stage.clientWidth / Math.max(stage.clientHeight, 1);
+  const f = asp < 1.25 ? Math.min(1.25 / asp * 0.7, 1.7) : 1;      // stand back on tall/narrow screens
+  const p = V(...posSlate);
+  camera.position.copy(TARGET).addScaledVector(p.sub(TARGET), f);
+  controls.target.copy(TARGET);
+  controls.update();
+}
+const views = {
+  reset: () => setView([-2.3, -4.0, 3.0]),
+  plan:  () => setView([1.2, 0.8, 8.2]),
+  side:  () => setView([1.2, -7.0, 1.1])
+};
+views.reset();
+document.getElementById('bReset').onclick = views.reset;
+document.getElementById('bPlan').onclick = views.plan;
+document.getElementById('bSide').onclick = views.side;
+
+/* ---------- toggles ---------- */
+const bind = (id, fn) => { const el = document.getElementById(id); el.addEventListener('change', () => fn(el.checked)); };
+const vis = (list, v) => list.forEach(o => { o.visible = v; });
+bind('tSpin', v => { controls.autoRotate = v; });
+bind('tRange', v => vis(cat.range, v));
+bind('tRlab', v => vis(cat.rlab, v));
+bind('tDrop', v => vis(cat.drop, v));
+bind('tErr', v => vis(cat.err, v));
+bind('tAxes', v => vis(cat.axes, v));
+
+/* ---------- legend collapses on small screens ---------- */
+if (window.innerWidth < 700) document.getElementById('legend').removeAttribute('open');
+
+/* ---------- resize + loop ---------- */
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  renderer.domElement.style.width = '100%'; renderer.domElement.style.height = '100%';
+  labelRenderer.setSize(w, h);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(stage);
+resize();
+views.reset();
+renderer.setAnimationLoop(() => {
+  controls.update();
+  renderer.render(scene, camera);
+  labelRenderer.render(scene, camera);
+});
+window.__ready = true;
+</script>
+</body>
+</html>
